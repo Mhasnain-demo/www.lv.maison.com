@@ -1,0 +1,1889 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>LV MAISON — Luxury Editorial Fashion</title>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Playfair+Display:ital,wght@0,400;0,700;0,900;1,400;1,700&family=DM+Sans:wght@300;400;500;600&family=Rajdhani:wght@400;500;600;700&display=swap" rel="stylesheet">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.min.js"></script>
+<style>
+/* ══════════════════════════════════════════════
+   LV MAISON — Bold Editorial Luxury
+   Monogram Logo | Black & White + Gold Accents
+══════════════════════════════════════════════ */
+[data-theme="light"]{
+  --bg:#f9f5f0;--bg2:#f2ece4;--bg3:#ffffff;--surface:#ffffff;--surface2:#faf7f3;
+  --card:#ffffff;--border:#e2d9cc;--border2:#ede6db;--text:#0a0a0a;--text2:#3a3330;
+  --muted:#8a7e74;--shadow:0 4px 24px rgba(0,0,0,.08);--shadow-lg:0 16px 60px rgba(0,0,0,.12);
+  --shadow-xl:0 32px 80px rgba(0,0,0,.15);
+}
+[data-theme="dark"]{
+  --bg:#0a0804;--bg2:#140f08;--bg3:#050302;--surface:#1a1208;--surface2:#221a10;
+  --card:#1a1208;--border:#332810;--border2:#2a2010;--text:#f5f0e8;--text2:#c8b89a;
+  --muted:#7a6a50;--shadow:0 4px 24px rgba(0,0,0,.5);--shadow-lg:0 16px 60px rgba(0,0,0,.6);
+  --shadow-xl:0 32px 80px rgba(0,0,0,.7);
+}
+:root{
+  --gold:#c9a84c;--gold2:#e8c96a;--gold3:#a07830;
+  --black:#0a0a0a;--white:#f9f5f0;
+  --nav-h:80px;--tr:0.3s cubic-bezier(.4,0,.2,1);
+}
+*,*::before,*::after{margin:0;padding:0;box-sizing:border-box;}
+html{scroll-behavior:smooth;}
+body{font-family:'DM Sans',sans-serif;background:var(--bg);color:var(--text);min-height:100vh;overflow-x:hidden;transition:background .4s,color .4s;}
+img{display:block;max-width:100%;object-fit:cover;}
+a{text-decoration:none;color:inherit;}
+button{font-family:inherit;cursor:pointer;border:none;background:none;}
+input,select,textarea{font-family:inherit;}
+::-webkit-scrollbar{width:4px;}
+::-webkit-scrollbar-thumb{background:var(--gold);border-radius:2px;}
+
+/* ── MONOGRAM LOGO SVG ── */
+.logo-svg{display:flex;align-items:center;gap:10px;cursor:pointer;}
+.logo-monogram{width:52px;height:52px;flex-shrink:0;}
+.logo-wordmark{display:flex;flex-direction:column;line-height:1;}
+.logo-main{font-family:'Bebas Neue',sans-serif;font-size:1.6rem;letter-spacing:5px;color:var(--text);}
+.logo-sub{font-size:0.38rem;letter-spacing:5px;text-transform:uppercase;color:var(--muted);margin-top:1px;}
+
+/* ── LOADER ── */
+#loader{position:fixed;inset:0;z-index:9999;background:var(--black);display:flex;align-items:center;justify-content:center;flex-direction:column;gap:2rem;transition:opacity .6s,visibility .6s;}
+#loader.gone{opacity:0;visibility:hidden;}
+.ld-mono{animation:ldSpin 1s ease-in-out;}
+@keyframes ldSpin{from{transform:rotate(-180deg) scale(0);opacity:0}to{transform:rotate(0) scale(1);opacity:1}}
+.ld-bar{width:120px;height:1px;background:rgba(201,168,76,.25);overflow:hidden;}
+.ld-fill{height:100%;width:0;background:var(--gold);animation:ldLoad 2s ease forwards;}
+@keyframes ldLoad{to{width:100%}}
+
+/* ── TOAST ── */
+#toast{position:fixed;bottom:7rem;right:2rem;background:var(--black);color:var(--gold2);padding:.85rem 1.5rem;font-size:.82rem;font-weight:500;z-index:9000;transform:translateY(80px);opacity:0;transition:all .4s cubic-bezier(.34,1.56,.64,1);border:1px solid var(--gold3);letter-spacing:.5px;max-width:280px;}
+#toast.show{transform:translateY(0);opacity:1;}
+
+/* ── WHATSAPP BUTTON ── */
+.wa-btn{position:fixed;bottom:2rem;right:2rem;width:56px;height:56px;background:#25d366;border-radius:50%;display:flex;align-items:center;justify-content:center;z-index:8000;box-shadow:0 4px 20px rgba(37,211,102,.4);transition:all var(--tr);cursor:pointer;}
+.wa-btn:hover{transform:scale(1.12);box-shadow:0 8px 30px rgba(37,211,102,.5);}
+.wa-btn svg{width:28px;height:28px;fill:#fff;}
+.wa-bubble{position:absolute;bottom:64px;right:0;background:var(--surface);border:1px solid var(--border);padding:1rem 1.2rem;width:240px;border-radius:12px 12px 0 12px;box-shadow:var(--shadow-lg);display:none;font-size:.82rem;color:var(--text2);line-height:1.5;}
+.wa-btn:hover .wa-bubble,.wa-btn:focus .wa-bubble{display:block;}
+.wa-bubble strong{display:block;color:var(--text);margin-bottom:.3rem;font-size:.88rem;}
+
+/* ── COUNTDOWN BANNER ── */
+.countdown-bar{background:var(--black);color:var(--gold2);padding:.65rem 2rem;display:flex;align-items:center;justify-content:center;gap:1.5rem;font-size:.72rem;letter-spacing:2px;text-transform:uppercase;position:relative;}
+[data-theme="dark"] .countdown-bar{background:#1a1000;}
+.cd-label{color:rgba(201,168,76,.7);}
+.cd-units{display:flex;gap:1rem;}
+.cd-unit{display:flex;flex-direction:column;align-items:center;}
+.cd-num{font-family:'Bebas Neue',sans-serif;font-size:1.3rem;color:var(--gold);letter-spacing:2px;line-height:1;}
+.cd-lbl{font-size:.55rem;letter-spacing:2px;color:rgba(201,168,76,.6);}
+.cd-close{position:absolute;right:1rem;font-size:1rem;color:var(--muted);opacity:.6;cursor:pointer;}
+.cd-close:hover{opacity:1;}
+.cd-sep{color:var(--gold3);}
+
+/* ── NAVBAR ── */
+.navbar{position:fixed;top:0;left:0;right:0;height:var(--nav-h);z-index:1000;transition:all .3s;}
+.navbar.scrolled{background:rgba(249,245,240,.97);backdrop-filter:blur(20px);box-shadow:var(--shadow);}
+[data-theme="dark"] .navbar.scrolled{background:rgba(10,8,4,.97);}
+.nav-inner{max-width:1440px;margin:0 auto;height:100%;display:flex;align-items:center;justify-content:space-between;padding:0 2.5rem;}
+.nav-links{list-style:none;display:flex;gap:2.5rem;align-items:center;}
+.nav-links a{font-family:'Rajdhani',sans-serif;font-size:.82rem;letter-spacing:3px;text-transform:uppercase;color:var(--text2);font-weight:600;position:relative;transition:color var(--tr);}
+.nav-links a::after{content:'';position:absolute;bottom:-3px;left:0;width:0;height:1.5px;background:var(--gold);transition:width var(--tr);}
+.nav-links a:hover,.nav-links a.active{color:var(--gold);}
+.nav-links a:hover::after,.nav-links a.active::after{width:100%;}
+.nav-actions{display:flex;align-items:center;gap:.6rem;}
+.nav-icon{width:38px;height:38px;display:flex;align-items:center;justify-content:center;color:var(--text2);border-radius:2px;transition:all var(--tr);position:relative;font-size:.95rem;}
+.nav-icon:hover{color:var(--gold);}
+.cbadge{position:absolute;top:3px;right:3px;background:var(--gold);color:var(--black);font-size:.55rem;font-weight:700;width:15px;height:15px;border-radius:50%;display:flex;align-items:center;justify-content:center;}
+/* Theme toggle */
+.theme-tog{width:50px;height:26px;background:var(--border);border-radius:50px;position:relative;cursor:pointer;transition:background .3s;border:1px solid var(--border2);}
+.theme-tog.dark{background:var(--gold3);}
+.tog-knob{position:absolute;top:2px;left:2px;width:20px;height:20px;background:var(--surface);border-radius:50%;transition:transform .3s;display:flex;align-items:center;justify-content:center;font-size:.7rem;box-shadow:0 1px 4px rgba(0,0,0,.2);}
+.theme-tog.dark .tog-knob{transform:translateX(24px);}
+.nav-sign{padding:.45rem 1.2rem;border:1.5px solid var(--gold);color:var(--gold);font-family:'Rajdhani',sans-serif;font-size:.75rem;font-weight:700;letter-spacing:2px;text-transform:uppercase;transition:all var(--tr);}
+.nav-sign:hover{background:var(--gold);color:var(--black);}
+.hamburger{display:none;flex-direction:column;gap:5px;padding:6px;}
+.hamburger span{display:block;width:22px;height:1.5px;background:var(--text);transition:all .3s;}
+.hamburger.open span:nth-child(1){transform:rotate(45deg) translate(4.7px,4.7px);}
+.hamburger.open span:nth-child(2){opacity:0;}
+.hamburger.open span:nth-child(3){transform:rotate(-45deg) translate(4.7px,-4.7px);}
+.mob-overlay{display:none;position:fixed;inset:0;background:rgba(0,0,0,.6);z-index:999;}
+.mob-overlay.show{display:block;}
+
+/* ── BUTTONS ── */
+.btn-gold{display:inline-flex;align-items:center;gap:.5rem;background:var(--gold);color:var(--black);padding:.9rem 2.2rem;font-family:'Rajdhani',sans-serif;font-size:.82rem;font-weight:700;letter-spacing:3px;text-transform:uppercase;transition:all var(--tr);}
+.btn-gold:hover{background:var(--gold2);transform:translateY(-2px);box-shadow:0 8px 24px rgba(201,168,76,.35);}
+.btn-black{display:inline-flex;align-items:center;gap:.5rem;background:var(--black);color:var(--white);padding:.9rem 2.2rem;font-family:'Rajdhani',sans-serif;font-size:.82rem;font-weight:700;letter-spacing:3px;text-transform:uppercase;transition:all var(--tr);}
+.btn-black:hover{transform:translateY(-2px);}
+.btn-outline-gold{display:inline-flex;align-items:center;gap:.5rem;background:transparent;color:var(--gold);border:1.5px solid var(--gold);padding:.85rem 2.2rem;font-family:'Rajdhani',sans-serif;font-size:.82rem;font-weight:700;letter-spacing:3px;text-transform:uppercase;transition:all var(--tr);}
+.btn-outline-gold:hover{background:var(--gold);color:var(--black);}
+.btn-outline-text{display:inline-flex;align-items:center;gap:.5rem;background:transparent;color:var(--text);border:1.5px solid var(--border);padding:.85rem 2.2rem;font-family:'Rajdhani',sans-serif;font-size:.82rem;font-weight:700;letter-spacing:3px;text-transform:uppercase;transition:all var(--tr);}
+.btn-outline-text:hover{border-color:var(--gold);color:var(--gold);}
+.bsm{padding:.5rem 1.1rem;font-size:.72rem;}
+.bfw{width:100%;justify-content:center;}
+
+/* ── PAGES ── */
+.page{display:none;}
+.page.active{display:block;}
+.page-top{padding:9rem 2.5rem 4rem;background:var(--bg2);border-bottom:1px solid var(--border);}
+.page-top h1{font-family:'Bebas Neue',sans-serif;font-size:clamp(3rem,7vw,7rem);letter-spacing:3px;color:var(--text);line-height:1;}
+.page-top p{color:var(--muted);font-size:.9rem;letter-spacing:2px;text-transform:uppercase;margin-top:.5rem;}
+
+/* ── SECTION UTILS ── */
+.sec{padding:6rem 2.5rem;max-width:1440px;margin:0 auto;}
+.sec-dark{padding:6rem 2.5rem;background:var(--black);}
+[data-theme="dark"] .sec-dark{background:#0d0a04;}
+.sec-dark .sec{padding:0;}
+.sec-tag{display:inline-block;font-family:'Rajdhani',sans-serif;font-size:.68rem;letter-spacing:4px;text-transform:uppercase;color:var(--gold);margin-bottom:.5rem;font-weight:700;}
+.sec-tag::before{content:'— ';}
+.sec-title{font-family:'Bebas Neue',sans-serif;font-size:clamp(3rem,6vw,5.5rem);letter-spacing:2px;color:var(--text);line-height:1;margin-bottom:2rem;}
+.sec-title span{color:var(--gold);}
+.sec-title-light{color:var(--white);}
+.center{text-align:center;}
+.center-btn{text-align:center;margin-top:3rem;}
+
+/* ══════════ HOME HERO ══════════ */
+.hero{min-height:100vh;display:grid;grid-template-columns:1fr 1fr;background:var(--bg);overflow:hidden;padding-top:var(--nav-h);}
+.hero-left{display:flex;flex-direction:column;justify-content:center;padding:5rem 3rem 5rem 4rem;}
+.hero-eyebrow{font-family:'Rajdhani',sans-serif;font-size:.7rem;letter-spacing:5px;text-transform:uppercase;color:var(--gold);margin-bottom:1.5rem;font-weight:700;}
+.hero-title{font-family:'Bebas Neue',sans-serif;font-size:clamp(5rem,9vw,9rem);letter-spacing:2px;line-height:.95;color:var(--text);margin-bottom:2rem;}
+.hero-title .gt{color:var(--gold);}
+.hero-desc{font-size:1rem;line-height:1.8;color:var(--muted);max-width:420px;margin-bottom:3rem;}
+.hero-btns{display:flex;gap:1rem;flex-wrap:wrap;margin-bottom:4rem;}
+.hero-right{position:relative;overflow:hidden;}
+.hero-right img{width:100%;height:100%;object-fit:cover;}
+.hero-right::after{content:'';position:absolute;left:0;top:0;bottom:0;width:60px;background:linear-gradient(to right,var(--bg),transparent);}
+.hero-right-badge{position:absolute;top:2.5rem;right:2.5rem;background:var(--black);border:1px solid var(--gold);padding:1.2rem;text-align:center;}
+[data-theme="dark"] .hero-right-badge{background:#0a0804;}
+.hrb-num{font-family:'Bebas Neue',sans-serif;font-size:2.5rem;color:var(--gold);letter-spacing:2px;line-height:1;}
+.hrb-lbl{font-size:.55rem;letter-spacing:3px;text-transform:uppercase;color:var(--muted);}
+.hero-scroll{display:flex;align-items:center;gap:1rem;font-family:'Rajdhani',sans-serif;font-size:.68rem;letter-spacing:4px;text-transform:uppercase;color:var(--muted);}
+.scroll-line{flex:1;max-width:60px;height:1px;background:var(--gold);opacity:.5;}
+
+/* MARQUEE */
+.mq-wrap{overflow:hidden;background:var(--gold);padding:.7rem 0;}
+.mq-track{display:flex;gap:2.5rem;width:max-content;animation:mq 22s linear infinite;font-family:'Bebas Neue',sans-serif;font-size:1rem;letter-spacing:4px;color:var(--black);opacity:.85;}
+.mq-dot{opacity:.4;}
+@keyframes mq{from{transform:translateX(0)}to{transform:translateX(-50%)}}
+
+/* EDITORIAL STRIP */
+.editorial-strip{display:grid;grid-template-columns:repeat(3,1fr);height:500px;}
+.ed-tile{position:relative;overflow:hidden;cursor:pointer;}
+.ed-tile img{width:100%;height:100%;object-fit:cover;transition:transform .7s;}
+.ed-tile:hover img{transform:scale(1.06);}
+.ed-label{position:absolute;inset:0;background:linear-gradient(to top,rgba(0,0,0,.75) 0%,transparent 50%);display:flex;flex-direction:column;justify-content:flex-end;padding:2rem;}
+.ed-label h3{font-family:'Bebas Neue',sans-serif;font-size:2rem;letter-spacing:2px;color:#fff;margin-bottom:.2rem;}
+.ed-label p{font-size:.72rem;letter-spacing:2px;text-transform:uppercase;color:rgba(255,255,255,.6);}
+.ed-label .ed-cta{margin-top:.75rem;font-family:'Rajdhani',sans-serif;font-size:.68rem;letter-spacing:3px;text-transform:uppercase;color:var(--gold);opacity:0;transform:translateY(6px);transition:all .3s;}
+.ed-tile:hover .ed-cta{opacity:1;transform:translateY(0);}
+
+/* ── PRODUCT CARD ── */
+.prod-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:1.5rem;}
+.pc{background:var(--card);border:1px solid var(--border);overflow:hidden;cursor:pointer;transition:all var(--tr);position:relative;}
+.pc:hover{transform:translateY(-5px);box-shadow:var(--shadow-lg);border-color:var(--gold);}
+.pc-img{height:320px;position:relative;overflow:hidden;background:var(--bg2);}
+.pc-img img{width:100%;height:100%;object-fit:cover;transition:transform .6s;}
+.pc:hover .pc-img img{transform:scale(1.05);}
+.pc-badges{position:absolute;top:.75rem;left:.75rem;display:flex;flex-direction:column;gap:.3rem;}
+.badge{font-family:'Rajdhani',sans-serif;font-size:.6rem;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;padding:.25rem .7rem;}
+.b-new{background:var(--gold);color:var(--black);}
+.b-hot{background:var(--black);color:var(--gold);border:1px solid var(--gold);}
+.b-sale{background:#cc3333;color:#fff;}
+.pc-acts{position:absolute;top:.75rem;right:.75rem;display:flex;flex-direction:column;gap:.4rem;opacity:0;transform:translateX(8px);transition:all var(--tr);}
+.pc:hover .pc-acts{opacity:1;transform:translateX(0);}
+.pa-btn{width:36px;height:36px;background:var(--surface);display:flex;align-items:center;justify-content:center;font-size:.9rem;color:var(--text);border:1px solid var(--border);transition:all .2s;}
+.pa-btn:hover{background:var(--gold);border-color:var(--gold);color:var(--black);}
+.pc-colors{position:absolute;bottom:.75rem;left:.75rem;display:flex;gap:.3rem;}
+.cdot{width:14px;height:14px;border-radius:50%;border:2px solid rgba(255,255,255,.7);cursor:pointer;transition:transform .2s;box-shadow:0 1px 3px rgba(0,0,0,.2);}
+.cdot:hover{transform:scale(1.3);}
+.pc-body{padding:1.3rem;}
+.pc-cat{font-family:'Rajdhani',sans-serif;font-size:.62rem;letter-spacing:2.5px;text-transform:uppercase;color:var(--gold);margin-bottom:.3rem;font-weight:700;}
+.pc-name{font-family:'Playfair Display',serif;font-size:1.05rem;font-weight:700;color:var(--text);margin-bottom:.5rem;line-height:1.3;}
+.pc-rating{display:flex;align-items:center;gap:.4rem;margin-bottom:.6rem;}
+.stars{font-size:.72rem;color:var(--gold);}
+.rc{font-size:.72rem;color:var(--muted);}
+.pc-foot{display:flex;align-items:center;justify-content:space-between;}
+.pc-price{font-family:'Playfair Display',serif;font-size:1.2rem;font-weight:700;color:var(--text);}
+.pc-price del{font-size:.85rem;color:var(--muted);font-weight:400;margin-right:.3rem;}
+.pc-add{width:36px;height:36px;background:var(--gold);display:flex;align-items:center;justify-content:center;font-size:1.1rem;color:var(--black);font-weight:700;transition:all .2s;}
+.pc-add:hover{background:var(--gold2);transform:scale(1.12);}
+
+/* PROMO */
+.promo-sec{padding:6rem 2.5rem;background:var(--black);text-align:center;position:relative;overflow:hidden;}
+[data-theme="dark"] .promo-sec{background:#0d0a04;}
+.promo-sec::before{content:'LV';position:absolute;font-family:'Bebas Neue',sans-serif;font-size:28vw;color:rgba(201,168,76,.03);top:50%;left:50%;transform:translate(-50%,-50%);pointer-events:none;letter-spacing:10px;}
+.promo-sec h2{font-family:'Bebas Neue',sans-serif;font-size:clamp(3rem,6vw,6rem);letter-spacing:3px;color:var(--white);margin-bottom:.5rem;position:relative;}
+.promo-sec p{color:rgba(249,245,240,.6);margin-bottom:2rem;letter-spacing:1px;position:relative;}
+.promo-form{display:flex;max-width:480px;margin:0 auto;position:relative;}
+.promo-form input{flex:1;padding:1rem 1.5rem;background:rgba(255,255,255,.06);border:1px solid rgba(201,168,76,.4);color:var(--white);font-size:.9rem;outline:none;letter-spacing:.5px;}
+.promo-form input::placeholder{color:rgba(249,245,240,.35);}
+.promo-form button{padding:1rem 1.8rem;background:var(--gold);color:var(--black);font-family:'Rajdhani',sans-serif;font-size:.78rem;font-weight:700;letter-spacing:2px;text-transform:uppercase;transition:all .2s;}
+.promo-form button:hover{background:var(--gold2);}
+
+/* STORY */
+.story-grid{display:grid;grid-template-columns:1fr 1fr;min-height:550px;}
+.story-img{position:relative;overflow:hidden;}
+.story-img img{width:100%;height:100%;object-fit:cover;}
+.story-img::after{content:'';position:absolute;right:0;top:0;bottom:0;width:80px;background:linear-gradient(to right,transparent,var(--bg2));}
+.story-text{background:var(--bg2);padding:5rem 4rem;display:flex;flex-direction:column;justify-content:center;gap:1.2rem;}
+.story-text h2{font-family:'Bebas Neue',sans-serif;font-size:clamp(3rem,5vw,5rem);letter-spacing:2px;color:var(--text);line-height:1;}
+.story-text h2 em{color:var(--gold);font-style:normal;}
+.story-text p{color:var(--muted);line-height:1.9;font-size:.95rem;}
+
+/* NEWSLETTER */
+.nl-sec{padding:5rem 2.5rem;background:var(--bg);text-align:center;}
+.nl-sec h2{font-family:'Bebas Neue',sans-serif;font-size:clamp(2.5rem,5vw,5rem);letter-spacing:2px;color:var(--text);margin-bottom:.5rem;}
+.nl-sec p{color:var(--muted);margin-bottom:2rem;letter-spacing:1px;}
+.nl-form{display:flex;max-width:420px;margin:0 auto 2rem;border:1.5px solid var(--border);overflow:hidden;}
+.nl-form input{flex:1;padding:.9rem 1.2rem;background:transparent;border:none;color:var(--text);font-size:.85rem;outline:none;}
+.nl-form input::placeholder{color:var(--muted);}
+.nl-form button{background:var(--gold);color:var(--black);padding:.9rem 1.5rem;font-family:'Rajdhani',sans-serif;font-size:.75rem;font-weight:700;letter-spacing:2px;}
+.nl-form button:hover{background:var(--gold2);}
+.soc-row{display:flex;gap:.75rem;justify-content:center;}
+.soc-btn{width:40px;height:40px;border:1.5px solid var(--border);display:flex;align-items:center;justify-content:center;font-size:.95rem;color:var(--muted);transition:all var(--tr);}
+.soc-btn:hover{border-color:var(--gold);color:var(--gold);}
+
+/* ══════════ SHOP PAGE ══════════ */
+.shop-layout{display:grid;grid-template-columns:260px 1fr;gap:2rem;max-width:1440px;margin:0 auto;padding:2rem 2.5rem 5rem;}
+.filters{background:var(--surface);border:1px solid var(--border);padding:1.5rem;height:fit-content;position:sticky;top:90px;}
+.filters h3{font-family:'Bebas Neue',sans-serif;font-size:1.2rem;letter-spacing:3px;color:var(--gold);margin-bottom:1.5rem;}
+.fg{margin-bottom:1.5rem;}
+.fg label{display:block;font-family:'Rajdhani',sans-serif;font-size:.65rem;letter-spacing:3px;text-transform:uppercase;color:var(--muted);margin-bottom:.6rem;font-weight:700;}
+.filter-pills{display:flex;flex-wrap:wrap;gap:.4rem;}
+.fp{padding:.35rem .85rem;border:1px solid var(--border);font-family:'Rajdhani',sans-serif;font-size:.72rem;font-weight:600;letter-spacing:1px;color:var(--muted);transition:all .2s;}
+.fp:hover,.fp.active{border-color:var(--gold);color:var(--gold);background:rgba(201,168,76,.07);}
+.fi{width:100%;padding:.65rem 1rem;background:var(--bg2);border:1px solid var(--border);color:var(--text);font-size:.85rem;outline:none;}
+.fi:focus{border-color:var(--gold);}
+.fi-sel{width:100%;padding:.65rem 1rem;background:var(--bg2);border:1px solid var(--border);color:var(--text);font-size:.85rem;outline:none;}
+.fi-sel option{background:var(--bg);}
+.price-sl{width:100%;-webkit-appearance:none;height:2px;background:var(--border);outline:none;cursor:pointer;}
+.price-sl::-webkit-slider-thumb{-webkit-appearance:none;width:16px;height:16px;background:var(--gold);cursor:pointer;box-shadow:0 0 6px rgba(201,168,76,.4);}
+.toolbar{display:flex;align-items:center;justify-content:space-between;margin-bottom:1.5rem;}
+.tc{font-family:'Rajdhani',sans-serif;font-size:.78rem;letter-spacing:2px;text-transform:uppercase;color:var(--muted);}
+.mob-filter-btn{display:none;padding:.45rem .9rem;border:1px solid var(--border);font-size:.75rem;color:var(--muted);font-family:'Rajdhani',sans-serif;letter-spacing:1px;}
+
+/* ══════════ PRODUCT DETAIL ══════════ */
+.detail-wrap{max-width:1300px;margin:0 auto;padding:2rem 2.5rem 5rem;}
+.breadcrumb{font-size:.75rem;color:var(--muted);margin-bottom:2rem;display:flex;gap:.5rem;align-items:center;font-family:'Rajdhani',sans-serif;letter-spacing:1px;}
+.breadcrumb a{color:var(--gold);}
+.detail-grid{display:grid;grid-template-columns:1.1fr 1fr;gap:5rem;}
+.gallery .main-img{width:100%;aspect-ratio:3/4;object-fit:cover;margin-bottom:.75rem;}
+.thumbs{display:flex;gap:.5rem;}
+.thumb{width:78px;height:78px;object-fit:cover;cursor:pointer;border:2px solid transparent;opacity:.6;transition:all .2s;}
+.thumb:hover,.thumb.active{opacity:1;border-color:var(--gold);}
+.vid-box{margin-top:.75rem;aspect-ratio:16/9;overflow:hidden;}
+.vid-box iframe{width:100%;height:100%;border:none;}
+.d-cat{font-family:'Rajdhani',sans-serif;font-size:.65rem;letter-spacing:3px;text-transform:uppercase;color:var(--gold);margin-bottom:.4rem;font-weight:700;}
+.d-name{font-family:'Playfair Display',serif;font-size:clamp(1.8rem,3vw,2.6rem);font-weight:700;color:var(--text);line-height:1.1;margin-bottom:.75rem;}
+.d-rating{display:flex;align-items:center;gap:.75rem;margin-bottom:1rem;}
+.d-price{font-family:'Playfair Display',serif;font-size:2.2rem;font-weight:700;color:var(--text);margin-bottom:.5rem;}
+.d-price del{font-size:1.2rem;color:var(--muted);font-weight:400;margin-right:.5rem;}
+.d-stock{font-size:.8rem;margin-bottom:1.2rem;font-family:'Rajdhani',sans-serif;letter-spacing:1px;font-weight:600;}
+.ins{color:#4a8c5c;}.los{color:#c9882a;}.outs{color:#c93a3a;}
+.d-desc{color:var(--muted);line-height:1.9;font-size:.93rem;margin-bottom:1.5rem;}
+.var-sec{margin-bottom:1.3rem;}
+.var-lbl{font-family:'Rajdhani',sans-serif;font-size:.65rem;letter-spacing:2.5px;text-transform:uppercase;color:var(--muted);margin-bottom:.6rem;display:block;font-weight:700;}
+.color-opts{display:flex;gap:.5rem;flex-wrap:wrap;}
+.color-opt{width:32px;height:32px;border-radius:50%;border:3px solid transparent;cursor:pointer;transition:all .2s;box-shadow:0 2px 6px rgba(0,0,0,.15);}
+.color-opt.active,.color-opt:hover{border-color:var(--text);transform:scale(1.15);}
+.size-opts{display:flex;gap:.5rem;flex-wrap:wrap;}
+.size-opt{padding:.45rem .9rem;border:1px solid var(--border);font-family:'Rajdhani',sans-serif;font-size:.78rem;font-weight:600;letter-spacing:1px;color:var(--text2);cursor:pointer;transition:all .2s;}
+.size-opt:hover,.size-opt.active{border-color:var(--gold);color:var(--gold);background:rgba(201,168,76,.06);}
+.size-opt.sold{opacity:.3;text-decoration:line-through;cursor:not-allowed;}
+.size-guide-link{font-family:'Rajdhani',sans-serif;font-size:.68rem;letter-spacing:2px;text-transform:uppercase;color:var(--gold);cursor:pointer;margin-top:.5rem;display:inline-block;font-weight:700;text-decoration:underline;}
+.qty-row{display:flex;align-items:center;gap:1rem;margin-bottom:1.5rem;}
+.qty-ctrl{display:flex;align-items:center;border:1px solid var(--border);}
+.qty-b{width:38px;height:38px;display:flex;align-items:center;justify-content:center;font-size:1.2rem;color:var(--text);transition:background .2s;}
+.qty-b:hover{background:var(--gold);color:var(--black);}
+.qty-v{width:48px;text-align:center;color:var(--text);font-size:1rem;background:transparent;border:none;outline:none;}
+.d-acts{display:flex;gap:.75rem;flex-wrap:wrap;}
+.trust-row{display:flex;gap:1.5rem;margin-top:1.5rem;padding-top:1.5rem;border-top:1px solid var(--border);}
+.trust-item{display:flex;align-items:center;gap:.4rem;font-size:.72rem;color:var(--muted);font-family:'Rajdhani',sans-serif;letter-spacing:.5px;}
+
+/* ══ SIZE CHART MODAL ══ */
+.modal-bg{position:fixed;inset:0;background:rgba(0,0,0,.75);z-index:5000;display:none;align-items:center;justify-content:center;}
+.modal-bg.open{display:flex;}
+.modal-box{background:var(--surface);border:1px solid var(--border);padding:2.5rem;width:min(700px,92vw);max-height:85vh;overflow-y:auto;box-shadow:var(--shadow-xl);}
+.modal-hdr{display:flex;align-items:center;justify-content:space-between;margin-bottom:1.5rem;}
+.modal-hdr h3{font-family:'Bebas Neue',sans-serif;font-size:2rem;letter-spacing:2px;color:var(--text);}
+.modal-close{font-size:1.6rem;color:var(--muted);line-height:1;transition:color .2s;}
+.modal-close:hover{color:var(--gold);}
+.size-chart-table{width:100%;border-collapse:collapse;font-size:.82rem;}
+.size-chart-table th{background:var(--bg2);font-family:'Rajdhani',sans-serif;font-size:.68rem;letter-spacing:2px;text-transform:uppercase;color:var(--gold);padding:.75rem 1rem;text-align:left;border-bottom:2px solid var(--border);font-weight:700;}
+.size-chart-table td{padding:.7rem 1rem;color:var(--text2);border-bottom:1px solid var(--border2);}
+.size-chart-table tr:hover td{background:rgba(201,168,76,.04);}
+.sc-note{font-size:.78rem;color:var(--muted);margin-top:1rem;line-height:1.6;}
+.sc-tabs{display:flex;gap:0;margin-bottom:1.5rem;border:1px solid var(--border);}
+.sc-tab{flex:1;padding:.6rem;font-family:'Rajdhani',sans-serif;font-size:.75rem;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--muted);text-align:center;border-right:1px solid var(--border);transition:all .2s;cursor:pointer;}
+.sc-tab:last-child{border-right:none;}
+.sc-tab.active{background:var(--gold);color:var(--black);}
+.sc-panel{display:none;}
+.sc-panel.active{display:block;}
+
+/* REVIEWS */
+.rev-sec{max-width:1300px;margin:0 auto;padding:3rem 2.5rem 5rem;border-top:1px solid var(--border);}
+.rev-hdr{display:flex;align-items:center;justify-content:space-between;margin-bottom:2rem;}
+.rev-hdr h3{font-family:'Bebas Neue',sans-serif;font-size:2rem;letter-spacing:2px;color:var(--text);}
+.rev-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:1rem;}
+.rev-card{background:var(--surface2);border:1px solid var(--border2);padding:1.5rem;}
+.rev-top{display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:.5rem;}
+.rev-user{font-weight:600;font-size:.88rem;color:var(--text);}
+.rev-date{font-size:.72rem;color:var(--muted);}
+.rev-body{font-size:.85rem;color:var(--text2);line-height:1.7;margin-top:.4rem;}
+.rev-form{background:var(--surface2);border:1px solid var(--border2);padding:1.5rem;margin-top:1.5rem;}
+.rev-form h4{font-family:'Bebas Neue',sans-serif;font-size:1.4rem;letter-spacing:2px;color:var(--text);margin-bottom:1rem;}
+.star-row{display:flex;gap:.3rem;font-size:1.4rem;margin-bottom:1rem;}
+.star-row span{cursor:pointer;color:var(--border);transition:color .15s;}
+.star-row span.lit{color:var(--gold);}
+
+/* CART */
+.cart-layout{max-width:1300px;margin:0 auto;padding:2rem 2.5rem 5rem;display:grid;grid-template-columns:1fr 360px;gap:2rem;align-items:start;}
+.cart-items{display:flex;flex-direction:column;gap:1rem;}
+.cart-item{display:grid;grid-template-columns:100px 1fr auto;gap:1.5rem;align-items:center;background:var(--surface);border:1px solid var(--border);padding:1.2rem;}
+.ci-img{width:100px;height:100px;object-fit:cover;}
+.ci-name{font-family:'Playfair Display',serif;font-size:.98rem;font-weight:700;color:var(--text);margin-bottom:.25rem;}
+.ci-meta{font-size:.75rem;color:var(--muted);margin-bottom:.25rem;font-family:'Rajdhani',sans-serif;letter-spacing:.5px;}
+.ci-price{font-size:.88rem;color:var(--gold);font-weight:600;}
+.ci-right{display:flex;flex-direction:column;align-items:flex-end;gap:.6rem;}
+.ci-total{font-family:'Playfair Display',serif;font-size:1.2rem;color:var(--text);font-weight:700;}
+.ci-remove{font-size:.68rem;letter-spacing:2px;text-transform:uppercase;color:var(--muted);transition:color .2s;font-family:'Rajdhani',sans-serif;}
+.ci-remove:hover{color:var(--gold);}
+.cart-sum{background:var(--surface);border:1px solid var(--border);padding:2rem;position:sticky;top:90px;}
+.cart-sum h3{font-family:'Bebas Neue',sans-serif;font-size:1.5rem;letter-spacing:2px;color:var(--text);margin-bottom:1.5rem;}
+.sum-rows{display:flex;flex-direction:column;gap:.7rem;margin-bottom:1rem;}
+.sum-row{display:flex;justify-content:space-between;font-size:.85rem;color:var(--muted);}
+.sum-total{display:flex;justify-content:space-between;padding:1rem 0;border-top:1px solid var(--border);border-bottom:1px solid var(--border);margin-bottom:1.5rem;font-family:'Playfair Display',serif;font-size:1.3rem;font-weight:700;color:var(--text);}
+.promo-row{display:flex;gap:.5rem;margin-bottom:1rem;}
+.promo-row input{flex:1;padding:.65rem 1rem;background:var(--bg2);border:1px solid var(--border);color:var(--text);font-size:.85rem;outline:none;}
+.promo-row button{padding:.65rem 1rem;border:1px solid var(--gold);color:var(--gold);font-family:'Rajdhani',sans-serif;font-size:.72rem;font-weight:700;letter-spacing:1px;transition:all .2s;}
+.promo-row button:hover{background:var(--gold);color:var(--black);}
+.empty-cart{text-align:center;padding:5rem 2rem;grid-column:1/-1;}
+.ei{font-size:3rem;margin-bottom:1rem;}
+
+/* CHECKOUT */
+.co-layout{max-width:1300px;margin:0 auto;padding:2rem 2.5rem 5rem;display:grid;grid-template-columns:1fr 360px;gap:2rem;align-items:start;}
+.co-step h3{font-family:'Bebas Neue',sans-serif;font-size:1.8rem;letter-spacing:2px;color:var(--text);margin-bottom:1.5rem;}
+.pay-opts{display:flex;flex-direction:column;gap:1rem;margin-bottom:2rem;}
+.pay-opt{display:block;}
+.pay-opt input{display:none;}
+.pay-card{display:flex;align-items:center;gap:1rem;border:1px solid var(--border);padding:1rem 1.5rem;cursor:pointer;transition:all .2s;color:var(--text);}
+.pay-opt.sel .pay-card,.pay-card:hover{border-color:var(--gold);background:rgba(201,168,76,.05);}
+.pay-card strong{display:block;font-family:'Rajdhani',sans-serif;font-size:.88rem;font-weight:700;letter-spacing:.5px;color:var(--text);}
+.pay-card small{font-size:.75rem;color:var(--muted);}
+.co-sum{background:var(--surface);border:1px solid var(--border);padding:1.5rem;position:sticky;top:90px;}
+.co-sum h3{font-family:'Bebas Neue',sans-serif;font-size:1.3rem;letter-spacing:2px;color:var(--text);margin-bottom:1rem;}
+.co-item{display:flex;align-items:center;gap:.75rem;padding:.65rem 0;border-bottom:1px solid var(--border2);}
+.co-item img{width:52px;height:52px;object-fit:cover;}
+.co-item-info h5{font-size:.82rem;color:var(--text);font-weight:500;}
+.co-item-info p{font-size:.72rem;color:var(--muted);}
+.co-item-price{font-family:'Playfair Display',serif;font-size:.93rem;color:var(--gold);margin-left:auto;font-weight:700;}
+.co-totals{margin-top:1rem;}
+.co-row{display:flex;justify-content:space-between;font-size:.82rem;color:var(--muted);padding:.35rem 0;}
+.co-row.grand{border-top:1px solid var(--border);margin-top:.5rem;padding-top:.75rem;font-family:'Playfair Display',serif;font-size:1.15rem;color:var(--text);font-weight:700;}
+
+/* CONFIRM */
+.confirm-wrap{max-width:580px;margin:0 auto;padding:6rem 2rem;text-align:center;}
+.confirm-icon{font-size:4rem;margin-bottom:1.5rem;animation:popIn .6s ease;}
+@keyframes popIn{from{transform:scale(0);opacity:0}80%{transform:scale(1.15)}to{transform:scale(1);opacity:1}}
+.confirm-wrap h1{font-family:'Bebas Neue',sans-serif;font-size:4rem;letter-spacing:3px;color:var(--gold);margin-bottom:1rem;}
+.confirm-wrap p{color:var(--muted);margin-bottom:1.5rem;}
+.confirm-box{background:var(--surface2);border:1px solid var(--border);padding:1.5rem;text-align:left;margin-bottom:2rem;}
+.cd-row{display:flex;justify-content:space-between;padding:.4rem 0;border-bottom:1px solid var(--border2);font-size:.85rem;}
+.cd-row:last-child{border:none;}
+.cd-row span{color:var(--muted);}
+.cd-row strong{color:var(--text);}
+
+/* FORMS */
+.form-group{margin-bottom:1.2rem;}
+.form-group label{display:block;font-family:'Rajdhani',sans-serif;font-size:.65rem;letter-spacing:2px;text-transform:uppercase;color:var(--muted);margin-bottom:.4rem;font-weight:700;}
+.form-group input,.form-group select,.form-group textarea{width:100%;padding:.8rem 1rem;background:var(--bg2);border:1px solid var(--border);color:var(--text);font-size:.9rem;outline:none;transition:border-color .2s;}
+.form-group input:focus,.form-group select:focus,.form-group textarea:focus{border-color:var(--gold);}
+.form-group select option{background:var(--bg);}
+.form-group textarea{resize:vertical;min-height:80px;}
+.form-row{display:grid;grid-template-columns:1fr 1fr;gap:1rem;}
+.pw-wrap{position:relative;}
+.pw-wrap input{padding-right:4rem;}
+.pw-eye{position:absolute;right:.75rem;top:50%;transform:translateY(-50%);font-size:.68rem;color:var(--gold);letter-spacing:1px;font-family:'Rajdhani',sans-serif;font-weight:700;}
+
+/* AUTH */
+.auth-wrap{min-height:100vh;display:grid;grid-template-columns:1fr 1fr;}
+.auth-vis{position:relative;overflow:hidden;}
+.auth-vis img{width:100%;height:100%;object-fit:cover;}
+.auth-vis-ov{position:absolute;inset:0;background:linear-gradient(to top,rgba(0,0,0,.9) 0%,rgba(0,0,0,.1) 70%);display:flex;flex-direction:column;justify-content:flex-end;padding:3rem;gap:1rem;}
+.auth-vis-ov .vl{font-family:'Bebas Neue',sans-serif;font-size:1.2rem;letter-spacing:6px;color:var(--gold);}
+.auth-vis-ov blockquote{font-family:'Playfair Display',serif;font-style:italic;font-size:1.05rem;color:rgba(249,245,240,.75);line-height:1.7;}
+.auth-form-side{display:flex;align-items:center;justify-content:center;background:var(--surface2);padding:2rem;}
+.auth-box{width:100%;max-width:420px;}
+.auth-box h2{font-family:'Bebas Neue',sans-serif;font-size:3rem;letter-spacing:3px;color:var(--text);margin-bottom:.4rem;}
+.auth-sub{font-size:.82rem;color:var(--muted);margin-bottom:2rem;letter-spacing:.5px;}
+.auth-div{text-align:center;position:relative;margin:1.2rem 0;font-size:.72rem;color:var(--muted);font-family:'Rajdhani',sans-serif;letter-spacing:2px;}
+.auth-div::before,.auth-div::after{content:'';position:absolute;top:50%;width:38%;height:1px;background:var(--border);}
+.auth-div::before{left:0;}.auth-div::after{right:0;}
+.auth-switch{margin-top:1.5rem;text-align:center;font-size:.82rem;color:var(--muted);}
+.lg{color:var(--gold);}
+.lg:hover{text-decoration:underline;}
+.ck-lbl{display:flex;align-items:center;gap:.5rem;font-size:.78rem;color:var(--muted);margin-bottom:1rem;}
+
+/* ABOUT */
+.about-intro{display:grid;grid-template-columns:1fr 1fr;gap:4rem;align-items:center;margin-bottom:5rem;}
+.about-img{overflow:hidden;height:520px;}
+.about-img img{width:100%;height:100%;object-fit:cover;}
+.about-stats{display:grid;grid-template-columns:repeat(4,1fr);gap:1rem;margin-top:2rem;}
+.a-stat{text-align:center;padding:1.5rem;border:1px solid var(--border);background:var(--surface2);}
+.a-stat .sn{display:block;font-family:'Bebas Neue',sans-serif;font-size:2.5rem;letter-spacing:2px;color:var(--gold);line-height:1;margin-bottom:.2rem;}
+.a-stat span:last-child{font-family:'Rajdhani',sans-serif;font-size:.62rem;letter-spacing:2px;text-transform:uppercase;color:var(--muted);}
+.values{display:grid;grid-template-columns:repeat(4,1fr);gap:1.5rem;}
+.val-card{background:var(--surface);border:1px solid var(--border);padding:2rem;text-align:center;transition:all var(--tr);}
+.val-card:hover{border-color:var(--gold);}
+.val-icon{font-size:1.8rem;color:var(--gold);margin-bottom:1rem;}
+.val-card h3{font-family:'Bebas Neue',sans-serif;font-size:1.2rem;letter-spacing:2px;color:var(--text);margin-bottom:.5rem;}
+.val-card p{font-size:.82rem;color:var(--muted);line-height:1.6;}
+
+/* CONTACT */
+.contact-layout{max-width:1300px;margin:0 auto;padding:4rem 2.5rem;display:grid;grid-template-columns:1fr 1.5fr;gap:5rem;}
+.c-info h3,.c-form-box h3{font-family:'Bebas Neue',sans-serif;font-size:2rem;letter-spacing:2px;color:var(--text);margin-bottom:1.5rem;}
+.c-items{display:flex;flex-direction:column;gap:1.5rem;margin-bottom:2rem;}
+.c-item{display:flex;gap:1rem;align-items:flex-start;}
+.c-icon{font-size:1rem;color:var(--gold);margin-top:.1rem;}
+.c-item strong{display:block;font-family:'Rajdhani',sans-serif;font-size:.65rem;letter-spacing:2px;text-transform:uppercase;color:var(--muted);margin-bottom:.2rem;}
+.c-item a,.c-item span{color:var(--text);font-size:.88rem;}
+.c-form-box{background:var(--surface2);border:1px solid var(--border);padding:2.5rem;}
+
+/* ══════════ ADMIN ══════════ */
+#page-admin-login{padding-top:0;}
+.gate-wrap{min-height:100vh;display:flex;align-items:center;justify-content:center;background:var(--black);padding:2rem;}
+[data-theme="dark"] .gate-wrap{background:#050302;}
+.gate-box{background:var(--bg);border:1px solid var(--gold3);padding:3.5rem;width:min(440px,100%);text-align:center;box-shadow:0 0 60px rgba(201,168,76,.1);}
+.gate-logo{margin-bottom:2rem;}
+.gate-box h2{font-family:'Bebas Neue',sans-serif;font-size:2.5rem;letter-spacing:3px;color:var(--text);margin-bottom:.4rem;}
+.gate-box p{font-size:.82rem;color:var(--muted);margin-bottom:1.5rem;}
+.gate-err{background:rgba(204,51,51,.1);border:1px solid rgba(204,51,51,.3);color:#cc5555;font-size:.8rem;padding:.6rem 1rem;margin-bottom:1rem;text-align:left;display:none;animation:shake .4s ease;}
+@keyframes shake{0%,100%{transform:translateX(0)}25%{transform:translateX(-6px)}75%{transform:translateX(6px)}}
+.gate-hint{margin-top:1.5rem;font-size:.72rem;color:var(--muted);}
+.gate-hint code{background:rgba(201,168,76,.12);color:var(--gold);padding:.1rem .4rem;font-size:.7rem;}
+
+/* ADMIN LAYOUT */
+#page-admin{padding-top:0;}
+.adm-wrap{display:grid;grid-template-columns:250px 1fr;min-height:100vh;}
+.adm-sidebar{background:var(--black);border-right:1px solid rgba(201,168,76,.15);display:flex;flex-direction:column;position:sticky;top:0;height:100vh;overflow-y:auto;}
+[data-theme="dark"] .adm-sidebar{background:#050302;}
+.adm-brand{padding:1.5rem;border-bottom:1px solid rgba(201,168,76,.15);display:flex;align-items:center;gap:.75rem;}
+.adm-brand-name{font-family:'Bebas Neue',sans-serif;font-size:1.1rem;letter-spacing:4px;color:var(--gold);}
+.adm-brand-tag{font-size:.45rem;letter-spacing:3px;text-transform:uppercase;color:rgba(201,168,76,.5);}
+.adm-user{display:flex;align-items:center;gap:.75rem;padding:1rem 1.5rem;border-bottom:1px solid rgba(201,168,76,.1);}
+.adm-av{width:34px;height:34px;background:var(--gold);display:flex;align-items:center;justify-content:center;font-family:'Bebas Neue',sans-serif;font-size:1rem;color:var(--black);font-weight:700;flex-shrink:0;}
+.adm-uname{font-size:.8rem;color:rgba(249,245,240,.85);font-weight:600;}
+.adm-urole{font-size:.6rem;color:var(--gold);font-family:'Rajdhani',sans-serif;letter-spacing:1px;}
+.adm-nav{flex:1;padding:.75rem;}
+.adm-grp{font-family:'Rajdhani',sans-serif;font-size:.55rem;letter-spacing:3px;text-transform:uppercase;color:rgba(201,168,76,.4);padding:.8rem .75rem .25rem;}
+.adm-btn{display:flex;align-items:center;gap:.6rem;width:100%;padding:.7rem .85rem;font-family:'Rajdhani',sans-serif;font-size:.78rem;font-weight:600;letter-spacing:.5px;color:rgba(249,245,240,.45);transition:all .2s;text-align:left;}
+.adm-btn:hover,.adm-btn.active{background:rgba(201,168,76,.1);color:var(--gold);}
+.adm-btn .ico{width:18px;text-align:center;font-size:.95rem;}
+.adm-logout{padding:1rem 1.5rem;font-family:'Rajdhani',sans-serif;font-size:.75rem;font-weight:600;letter-spacing:1px;color:rgba(249,245,240,.3);text-align:left;width:100%;border-top:1px solid rgba(201,168,76,.1);transition:color .2s;}
+.adm-logout:hover{color:var(--gold);}
+.adm-body{background:var(--bg);display:flex;flex-direction:column;}
+.adm-topbar{display:flex;align-items:center;gap:1rem;background:var(--surface);border-bottom:1px solid var(--border);padding:.85rem 2rem;position:sticky;top:0;z-index:10;}
+.adm-mob-toggle{display:none;font-size:1.2rem;color:var(--gold);}
+.adm-topbar-title{font-family:'Bebas Neue',sans-serif;font-size:1.4rem;letter-spacing:2px;color:var(--text);flex:1;}
+.adm-topbar-right{display:flex;align-items:center;gap:.75rem;}
+.adm-content{padding:2rem;flex:1;}
+.adm-sec{display:none;}
+.adm-sec.active{display:block;}
+.adm-sec>h2{font-family:'Bebas Neue',sans-serif;font-size:2.2rem;letter-spacing:3px;color:var(--gold);margin-bottom:1.5rem;}
+.adm-sec-hdr{display:flex;align-items:center;justify-content:space-between;margin-bottom:1.5rem;}
+.adm-sec-hdr h2{font-family:'Bebas Neue',sans-serif;font-size:2.2rem;letter-spacing:3px;color:var(--gold);margin:0;}
+
+/* KPI */
+.kpi-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:1rem;margin-bottom:2rem;}
+.kpi{background:var(--surface);border:1px solid var(--border);padding:1.5rem;transition:all .2s;}
+.kpi:hover{border-color:var(--gold);transform:translateY(-2px);}
+.kpi-top{display:flex;align-items:center;justify-content:space-between;margin-bottom:.5rem;}
+.kpi-lbl{font-family:'Rajdhani',sans-serif;font-size:.62rem;letter-spacing:2px;text-transform:uppercase;color:var(--muted);font-weight:700;}
+.kpi-ico{font-size:1.3rem;}
+.kpi-val{font-family:'Bebas Neue',sans-serif;font-size:2.8rem;letter-spacing:2px;line-height:1;margin-bottom:.2rem;}
+.kpi-val.g{color:var(--gold);}
+.kpi-val.w{color:var(--text);}
+.kpi-change{font-size:.72rem;font-family:'Rajdhani',sans-serif;font-weight:600;}
+.kpi-change.up{color:#4a8c5c;}.kpi-change.dn{color:#c93a3a;}
+
+/* CHARTS */
+.charts-row{display:grid;grid-template-columns:2fr 1fr;gap:1rem;margin-bottom:1.5rem;}
+.chart-box{background:var(--surface);border:1px solid var(--border);padding:1.5rem;}
+.chart-hdr{display:flex;align-items:center;justify-content:space-between;margin-bottom:1rem;}
+.chart-hdr h4{font-family:'Bebas Neue',sans-serif;font-size:1.1rem;letter-spacing:2px;color:var(--text);}
+.chart-hdr select{padding:.3rem .6rem;background:var(--bg2);border:1px solid var(--border);color:var(--text);font-size:.75rem;outline:none;}
+.dash-bottom{display:grid;grid-template-columns:1.5fr 1fr;gap:1rem;}
+.dash-panel{background:var(--surface);border:1px solid var(--border);padding:1.5rem;}
+.dash-phdr{display:flex;justify-content:space-between;align-items:center;margin-bottom:1rem;}
+.dash-phdr h4{font-family:'Bebas Neue',sans-serif;font-size:1.1rem;letter-spacing:2px;color:var(--text);}
+.tp-item{display:flex;align-items:center;gap:.75rem;padding:.6rem 0;border-bottom:1px solid var(--border2);}
+.tp-item:last-child{border:none;}
+.tp-rank{width:22px;height:22px;background:rgba(201,168,76,.15);display:flex;align-items:center;justify-content:center;font-family:'Bebas Neue',sans-serif;font-size:.9rem;color:var(--gold);}
+.tp-img{width:38px;height:38px;object-fit:cover;}
+.tp-name{flex:1;font-size:.8rem;color:var(--text);}
+.tp-sold{font-size:.7rem;color:var(--muted);}
+.tp-rev{font-family:'Playfair Display',serif;font-size:.92rem;color:var(--gold);font-weight:700;}
+
+/* ANALYTICS */
+.anal-hdr{display:flex;align-items:center;justify-content:space-between;margin-bottom:1.5rem;}
+.anal-hdr h2{font-family:'Bebas Neue',sans-serif;font-size:2.2rem;letter-spacing:3px;color:var(--gold);margin:0;}
+.anal-filters{display:flex;gap:.75rem;align-items:center;}
+.anal-filters select{padding:.45rem .8rem;background:var(--surface);border:1px solid var(--border);color:var(--text);font-size:.8rem;outline:none;}
+.anal-kpis{display:grid;grid-template-columns:repeat(5,1fr);gap:1rem;margin-bottom:1.5rem;}
+.ak{background:var(--surface);border:1px solid var(--border);padding:1.2rem;text-align:center;}
+.ak .lbl{font-family:'Rajdhani',sans-serif;font-size:.6rem;letter-spacing:2px;text-transform:uppercase;color:var(--muted);margin-bottom:.4rem;font-weight:700;}
+.ak .val{font-family:'Bebas Neue',sans-serif;font-size:1.8rem;letter-spacing:2px;color:var(--gold);line-height:1;}
+.ak .sub{font-size:.7rem;color:var(--muted);margin-top:.2rem;}
+.anal-charts{display:grid;grid-template-columns:repeat(3,1fr);gap:1rem;margin-bottom:1.5rem;}
+.ac{background:var(--surface);border:1px solid var(--border);padding:1.3rem;}
+.ac h4{font-family:'Bebas Neue',sans-serif;font-size:1rem;letter-spacing:2px;color:var(--text);margin-bottom:.75rem;}
+.ac.wide{grid-column:span 2;}
+.ctry-list{padding:.5rem 0;}
+.ctry-row{display:flex;align-items:center;gap:.75rem;margin-bottom:.6rem;font-size:.78rem;}
+.ctry-name{flex:0 0 110px;color:var(--text);font-weight:500;}
+.ctry-bar{flex:1;height:4px;background:var(--border);overflow:hidden;}
+.ctry-fill{height:100%;background:var(--gold);}
+.ctry-val{flex:0 0 30px;text-align:right;color:var(--muted);}
+.order-log{background:var(--surface);border:1px solid var(--border);padding:1.5rem;}
+.log-hdr{display:flex;align-items:center;justify-content:space-between;margin-bottom:1rem;}
+.log-hdr h4{font-family:'Bebas Neue',sans-serif;font-size:1.1rem;letter-spacing:2px;color:var(--text);}
+.log-hdr input{padding:.4rem .8rem;background:var(--bg2);border:1px solid var(--border);color:var(--text);font-size:.8rem;outline:none;width:200px;}
+.log-hdr input:focus{border-color:var(--gold);}
+
+/* TABLES */
+.tbl-wrap{overflow-x:auto;}
+table{width:100%;border-collapse:collapse;font-size:.8rem;}
+thead th{background:rgba(201,168,76,.08);font-family:'Rajdhani',sans-serif;font-size:.6rem;letter-spacing:2.5px;text-transform:uppercase;color:var(--gold);padding:.75rem 1rem;text-align:left;border-bottom:2px solid rgba(201,168,76,.2);font-weight:700;}
+tbody td{padding:.85rem 1rem;color:var(--text2);border-bottom:1px solid var(--border2);}
+tbody tr:hover td{color:var(--text);background:rgba(201,168,76,.02);}
+.tbl-img{width:46px;height:46px;object-fit:cover;}
+.sbadge{display:inline-block;font-family:'Rajdhani',sans-serif;font-size:.6rem;font-weight:700;padding:.2rem .6rem;letter-spacing:1px;}
+.s-Confirmed{background:rgba(74,140,92,.15);color:#4a8c5c;}
+.s-Processing{background:rgba(201,136,42,.15);color:#c9882a;}
+.s-Shipped{background:rgba(74,120,180,.15);color:#4a78b4;}
+.s-Delivered{background:rgba(155,100,40,.15);color:#9b6428;}
+.tb-btn{padding:.28rem .7rem;font-family:'Rajdhani',sans-serif;font-size:.68rem;font-weight:700;letter-spacing:1px;transition:all .2s;}
+.tb-edit{border:1px solid var(--gold);color:var(--gold);}
+.tb-edit:hover{background:var(--gold);color:var(--black);}
+.tb-del{border:1px solid rgba(204,51,51,.4);color:rgba(204,51,51,.7);}
+.tb-del:hover{background:#cc3333;color:#fff;}
+.stat-sel{padding:.25rem .5rem;background:var(--bg2);border:1px solid var(--border);color:var(--text);font-size:.73rem;outline:none;}
+
+/* ADD PROD FORM */
+.adm-form{background:var(--surface);border:1px solid var(--border);padding:2rem;}
+.img-prev-row{display:flex;gap:.75rem;flex-wrap:wrap;margin-bottom:1.5rem;}
+.img-prev-row img{width:80px;height:80px;object-fit:cover;border:1px solid var(--border);}
+
+/* SETTINGS */
+.sett-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1.5rem;}
+.sett-card{background:var(--surface);border:1px solid var(--border);padding:1.5rem;}
+.sett-card h4{font-family:'Bebas Neue',sans-serif;font-size:1.2rem;letter-spacing:2px;color:var(--text);margin-bottom:1.2rem;}
+.cred-row{display:flex;justify-content:space-between;padding:.4rem 0;border-bottom:1px solid var(--border2);font-size:.82rem;}
+.cred-row:last-child{border:none;}
+.cred-row span{color:var(--muted);}
+.cred-row code{background:rgba(201,168,76,.1);color:var(--gold);padding:.1rem .4rem;font-size:.72rem;}
+
+/* FOOTER */
+footer{background:var(--black);border-top:1px solid rgba(201,168,76,.15);}
+[data-theme="dark"] footer{background:#050302;}
+.ft-top{max-width:1440px;margin:0 auto;padding:5rem 2.5rem 3rem;display:grid;grid-template-columns:2fr 1fr 1fr 1fr 1fr;gap:3rem;}
+.ft-brand p{font-size:.82rem;color:rgba(249,245,240,.4);line-height:1.7;max-width:260px;margin-top:1rem;}
+.ft-col h4{font-family:'Rajdhani',sans-serif;font-size:.62rem;letter-spacing:3px;text-transform:uppercase;color:var(--gold);margin-bottom:1.2rem;font-weight:700;}
+.ft-col a{display:block;font-size:.8rem;color:rgba(249,245,240,.35);margin-bottom:.5rem;transition:color .2s;cursor:pointer;}
+.ft-col a:hover{color:var(--gold);}
+.ft-bot{max-width:1440px;margin:0 auto;padding:1.2rem 2.5rem;border-top:1px solid rgba(201,168,76,.1);display:flex;align-items:center;justify-content:space-between;font-size:.72rem;color:rgba(249,245,240,.25);}
+.ft-legal{display:flex;gap:1.5rem;}
+.ft-legal a{color:rgba(249,245,240,.25);}
+.ft-legal a:hover{color:var(--gold);}
+
+/* WISH MODAL */
+.wish-modal-bg{position:fixed;inset:0;background:rgba(0,0,0,.7);z-index:4000;display:none;align-items:center;justify-content:center;}
+.wish-modal-bg.open{display:flex;}
+
+/* RESPONSIVE */
+@media(max-width:1100px){
+  .kpi-grid{grid-template-columns:1fr 1fr}.charts-row{grid-template-columns:1fr}.anal-charts{grid-template-columns:1fr 1fr}.ac.wide{grid-column:span 2}
+  .ft-top{grid-template-columns:1fr 1fr}.sett-grid{grid-template-columns:1fr 1fr}.dash-bottom{grid-template-columns:1fr}.values{grid-template-columns:1fr 1fr}
+}
+@media(max-width:900px){
+  .hero{grid-template-columns:1fr}.hero-right{display:none}
+  .auth-wrap{grid-template-columns:1fr}.auth-vis{display:none}.auth-form-side{padding:var(--nav-h) 2rem 3rem}
+  .adm-wrap{grid-template-columns:1fr}.adm-sidebar{position:fixed;left:-260px;top:0;bottom:0;width:250px;z-index:200;transition:left .3s}.adm-sidebar.open{left:0}.adm-mob-toggle{display:block}
+  .shop-layout{grid-template-columns:1fr}.filters{display:none;position:static}.filters.open{display:block}.mob-filter-btn{display:block}
+  .cart-layout,.co-layout{grid-template-columns:1fr}.detail-grid{grid-template-columns:1fr}.story-grid{grid-template-columns:1fr}
+  .about-intro{grid-template-columns:1fr}.about-stats{grid-template-columns:1fr 1fr}.values{grid-template-columns:1fr 1fr}.contact-layout{grid-template-columns:1fr}
+  .anal-kpis{grid-template-columns:1fr 1fr}.anal-charts{grid-template-columns:1fr}.ac.wide{grid-column:span 1}
+  .editorial-strip{grid-template-columns:1fr}.ed-tile{height:240px}
+}
+@media(max-width:700px){
+  .hamburger{display:flex}
+  .nav-links{position:fixed;top:0;right:-100%;bottom:0;width:75%;background:var(--black);flex-direction:column;padding:calc(var(--nav-h)+2rem) 2rem 2rem;gap:0;z-index:999;transition:right .4s;border-left:1px solid rgba(201,168,76,.15)}
+  .nav-links.open{right:0}.nav-links li{border-bottom:1px solid rgba(201,168,76,.1)}.nav-links a{display:block;padding:1rem 0}.nav-sign{display:none}
+  .ft-top{grid-template-columns:1fr}.form-row{grid-template-columns:1fr}
+  .kpi-grid{grid-template-columns:1fr 1fr}.sett-grid{grid-template-columns:1fr}.anal-kpis{grid-template-columns:1fr 1fr}
+  .countdown-bar{flex-wrap:wrap;gap:.75rem;font-size:.65rem}
+}
+</style>
+</head>
+<body>
+
+<!-- LOADER -->
+<div id="loader">
+  <svg class="ld-mono" width="80" height="80" viewBox="0 0 80 80" fill="none">
+    <rect x="4" y="4" width="72" height="72" stroke="#c9a84c" stroke-width="1.5"/>
+    <text x="40" y="52" text-anchor="middle" font-family="Bebas Neue,sans-serif" font-size="32" fill="#c9a84c" letter-spacing="4">LV</text>
+  </svg>
+  <div class="ld-bar"><div class="ld-fill"></div></div>
+</div>
+
+<!-- TOAST -->
+<div id="toast"></div>
+
+<!-- WHATSAPP -->
+<div class="wa-btn" onclick="window.open('https://wa.me/12025551234?text=Hello%20LV%20Maison!%20I%20need%20help.','_blank')">
+  <svg viewBox="0 0 24 24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893A11.821 11.821 0 0020.885 3.488"/></svg>
+  <div class="wa-bubble"><strong>Need help? Chat with us!</strong>Our team replies in minutes during business hours.</div>
+</div>
+
+<!-- COUNTDOWN BANNER -->
+<div class="countdown-bar" id="cdBar">
+  <span class="cd-label">FLASH SALE ENDS IN</span>
+  <div class="cd-units">
+    <div class="cd-unit"><div class="cd-num" id="cd-h">00</div><div class="cd-lbl">HRS</div></div>
+    <div class="cd-sep">:</div>
+    <div class="cd-unit"><div class="cd-num" id="cd-m">00</div><div class="cd-lbl">MIN</div></div>
+    <div class="cd-sep">:</div>
+    <div class="cd-unit"><div class="cd-num" id="cd-s">00</div><div class="cd-lbl">SEC</div></div>
+  </div>
+  <span>— EXTRA 15% OFF SALE ITEMS</span>
+  <span class="cd-close" onclick="document.getElementById('cdBar').style.display='none'">✕</span>
+</div>
+
+<!-- NAVBAR -->
+<nav class="navbar" id="navbar">
+  <div class="nav-inner">
+    <button class="hamburger" id="hamburger"><span></span><span></span><span></span></button>
+    <!-- MONOGRAM LOGO -->
+    <div class="logo-svg" onclick="go('home')">
+      <svg class="logo-monogram" viewBox="0 0 52 52" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <rect x="1" y="1" width="50" height="50" stroke="#c9a84c" stroke-width="1"/>
+        <rect x="5" y="5" width="42" height="42" stroke="#c9a84c" stroke-width="0.5" opacity="0.4"/>
+        <text x="26" y="36" text-anchor="middle" font-family="Bebas Neue, sans-serif" font-size="22" fill="#c9a84c" letter-spacing="3">LV</text>
+      </svg>
+      <div class="logo-wordmark">
+        <div class="logo-main">LV MAISON</div>
+        <div class="logo-sub">Luxury Editorial Fashion</div>
+      </div>
+    </div>
+    <ul class="nav-links" id="navLinks">
+      <li><a href="#" onclick="go('home')" data-p="home">Home</a></li>
+      <li><a href="#" onclick="go('products')" data-p="products">Shop</a></li>
+      <li><a href="#" onclick="go('about')" data-p="about">About</a></li>
+      <li><a href="#" onclick="go('contact')" data-p="contact">Contact</a></li>
+      <li><a href="#" onclick="go('admin-login')" style="color:var(--gold)">Admin</a></li>
+    </ul>
+    <div class="nav-actions">
+      <div class="theme-tog" id="themeTog" onclick="toggleTheme()">
+        <div class="tog-knob" id="togKnob">☀️</div>
+      </div>
+      <button class="nav-icon" onclick="go('products')">🔍</button>
+      <button class="nav-icon" onclick="openWishlist()">♡</button>
+      <button class="nav-icon" onclick="go('cart')" style="position:relative">🛍<span class="cbadge" id="cartBadge">0</span></button>
+      <button class="nav-sign" id="authBtn" onclick="handleAuth()">SIGN IN</button>
+    </div>
+  </div>
+</nav>
+<div class="mob-overlay" id="mobOverlay" onclick="closeMenu()"></div>
+
+<!-- SIZE CHART MODAL -->
+<div class="modal-bg" id="sizeModal" onclick="if(event.target===this)closeSizeChart()">
+  <div class="modal-box">
+    <div class="modal-hdr">
+      <h3>SIZE GUIDE</h3>
+      <button class="modal-close" onclick="closeSizeChart()">×</button>
+    </div>
+    <div class="sc-tabs">
+      <div class="sc-tab active" onclick="showSCTab('clothing',this)">Clothing</div>
+      <div class="sc-tab" onclick="showSCTab('shoes',this)">Footwear</div>
+      <div class="sc-tab" onclick="showSCTab('decor',this)">Home Items</div>
+    </div>
+    <div class="sc-panel active" id="sc-clothing">
+      <table class="size-chart-table">
+        <thead><tr><th>Size</th><th>UK</th><th>EU</th><th>US</th><th>Bust (cm)</th><th>Waist (cm)</th><th>Hip (cm)</th></tr></thead>
+        <tbody>
+          <tr><td>XS</td><td>6</td><td>34</td><td>2</td><td>80–83</td><td>62–65</td><td>88–91</td></tr>
+          <tr><td>S</td><td>8</td><td>36</td><td>4</td><td>84–87</td><td>66–69</td><td>92–95</td></tr>
+          <tr><td>M</td><td>10</td><td>38</td><td>6</td><td>88–91</td><td>70–73</td><td>96–99</td></tr>
+          <tr><td>L</td><td>12</td><td>40</td><td>8</td><td>92–95</td><td>74–77</td><td>100–103</td></tr>
+          <tr><td>XL</td><td>14</td><td>42</td><td>10</td><td>96–99</td><td>78–81</td><td>104–107</td></tr>
+          <tr><td>2XL</td><td>16</td><td>44</td><td>12</td><td>100–103</td><td>82–85</td><td>108–111</td></tr>
+        </tbody>
+      </table>
+      <p class="sc-note">💡 <strong>Tip:</strong> If you're between sizes, we recommend sizing up for a relaxed fit or staying true to size for a structured look. All measurements are in centimetres.</p>
+    </div>
+    <div class="sc-panel" id="sc-shoes">
+      <table class="size-chart-table">
+        <thead><tr><th>UK</th><th>EU</th><th>US Women</th><th>US Men</th><th>Length (cm)</th></tr></thead>
+        <tbody>
+          <tr><td>3</td><td>36</td><td>5.5</td><td>—</td><td>22.5</td></tr>
+          <tr><td>4</td><td>37</td><td>6.5</td><td>—</td><td>23.5</td></tr>
+          <tr><td>5</td><td>38</td><td>7.5</td><td>6</td><td>24.0</td></tr>
+          <tr><td>6</td><td>39</td><td>8.5</td><td>7</td><td>24.8</td></tr>
+          <tr><td>7</td><td>41</td><td>9.5</td><td>8</td><td>25.8</td></tr>
+          <tr><td>8</td><td>42</td><td>10.5</td><td>9</td><td>26.5</td></tr>
+        </tbody>
+      </table>
+      <p class="sc-note">💡 For footwear, measure the length of your foot from heel to longest toe while standing. Add 1cm for a comfortable fit.</p>
+    </div>
+    <div class="sc-panel" id="sc-decor">
+      <table class="size-chart-table">
+        <thead><tr><th>Label</th><th>Dimensions</th><th>Best For</th></tr></thead>
+        <tbody>
+          <tr><td>Small</td><td>20–30cm</td><td>Side tables, shelves, accents</td></tr>
+          <tr><td>Medium</td><td>30–50cm</td><td>Coffee tables, mantels</td></tr>
+          <tr><td>Large</td><td>50–80cm</td><td>Floor vases, feature pieces</td></tr>
+          <tr><td>XL</td><td>80cm+</td><td>Statement corners, lobbies</td></tr>
+          <tr><td>Rug S</td><td>120×180cm</td><td>Small rooms, accent rugs</td></tr>
+          <tr><td>Rug M</td><td>160×230cm</td><td>Living rooms, under dining table</td></tr>
+          <tr><td>Rug L</td><td>200×290cm</td><td>Large open-plan spaces</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
+
+<!-- WISHLIST MODAL -->
+<div class="wish-modal-bg" id="wishModal" onclick="if(event.target===this)closeWish()">
+  <div class="modal-box">
+    <div class="modal-hdr"><h3>MY WISHLIST</h3><button class="modal-close" onclick="closeWish()">×</button></div>
+    <div id="wishItems"></div>
+  </div>
+</div>
+
+<!-- ═════════════════ APP ═════════════════ -->
+<div id="app">
+
+<!-- ══ HOME ══ -->
+<div class="page active" id="page-home">
+  <section class="hero">
+    <div class="hero-left">
+      <div class="hero-eyebrow">— The New Luxury Standard</div>
+      <h1 class="hero-title">DEFINE<br>YOUR<br><span class="gt">SIGNATURE</span></h1>
+      <p class="hero-desc">Bold editorial fashion and handcrafted home décor for those who command attention. Every piece tells a story worth reading.</p>
+      <div class="hero-btns">
+        <button class="btn-gold" onclick="go('products')">SHOP THE EDIT</button>
+        <button class="btn-outline-text" onclick="go('about')">OUR STORY</button>
+      </div>
+      <div class="hero-scroll"><div class="scroll-line"></div><span>SCROLL TO EXPLORE</span></div>
+    </div>
+    <div class="hero-right">
+      <img src="https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=800&q=80" alt="LV Maison">
+      <div class="hero-right-badge">
+        <div class="hrb-num">500+</div>
+        <div class="hrb-lbl">Curated Pieces</div>
+      </div>
+    </div>
+  </section>
+
+  <div class="mq-wrap">
+    <div class="mq-track">
+      <span>LUXURY FASHION</span><span class="mq-dot">◆</span><span>HOME DÉCOR</span><span class="mq-dot">◆</span><span>JEWELLERY</span><span class="mq-dot">◆</span><span>FOOTWEAR</span><span class="mq-dot">◆</span><span>ACCESSORIES</span><span class="mq-dot">◆</span><span>BEAUTY</span><span class="mq-dot">◆</span><span>ARTISAN CRAFTED</span><span class="mq-dot">◆</span><span>WORLDWIDE SHIPPING</span><span class="mq-dot">◆</span>
+      <span>LUXURY FASHION</span><span class="mq-dot">◆</span><span>HOME DÉCOR</span><span class="mq-dot">◆</span><span>JEWELLERY</span><span class="mq-dot">◆</span><span>FOOTWEAR</span><span class="mq-dot">◆</span><span>ACCESSORIES</span><span class="mq-dot">◆</span><span>BEAUTY</span><span class="mq-dot">◆</span><span>ARTISAN CRAFTED</span><span class="mq-dot">◆</span><span>WORLDWIDE SHIPPING</span><span class="mq-dot">◆</span>
+    </div>
+  </div>
+
+  <!-- EDITORIAL CATEGORIES -->
+  <div class="editorial-strip">
+    <div class="ed-tile" onclick="filterGo('clothing')">
+      <img src="https://images.unsplash.com/photo-1558769132-cb1aea458c5e?w=700&q=80" alt="Clothing">
+      <div class="ed-label"><h3>CLOTHING</h3><p>Refined Silhouettes</p><div class="ed-cta">SHOP NOW →</div></div>
+    </div>
+    <div class="ed-tile" onclick="filterGo('decor')">
+      <img src="https://images.unsplash.com/photo-1616137466211-f939a420be84?w=700&q=80" alt="Home Décor">
+      <div class="ed-label"><h3>HOME DÉCOR</h3><p>Sacred Spaces</p><div class="ed-cta">SHOP NOW →</div></div>
+    </div>
+    <div class="ed-tile" onclick="filterGo('jewellery')">
+      <img src="https://images.unsplash.com/photo-1515562141207-7a88fb7ce338?w=700&q=80" alt="Jewellery">
+      <div class="ed-label"><h3>JEWELLERY</h3><p>Precious Details</p><div class="ed-cta">SHOP NOW →</div></div>
+    </div>
+  </div>
+
+  <!-- NEW ARRIVALS -->
+  <div class="sec-dark"><div class="sec">
+    <div class="center" style="margin-bottom:2.5rem">
+      <div class="sec-tag">Just Landed</div>
+      <h2 class="sec-title sec-title-light">NEW <span style="color:var(--white)">ARRIVALS</span></h2>
+    </div>
+    <div class="prod-grid" id="homeNewGrid"></div>
+    <div class="center-btn"><button class="btn-outline-gold" onclick="go('products')">VIEW ALL NEW ARRIVALS</button></div>
+  </div></div>
+
+  <!-- PROMO BANNER -->
+  <div class="promo-sec">
+    <div class="sec-tag">EXCLUSIVE OFFER</div>
+    <h2>20% OFF YOUR FIRST ORDER</h2>
+    <p>Join the LV Maison circle and receive an exclusive welcome discount.</p>
+    <div class="promo-form">
+      <input type="email" id="promoEmail" placeholder="Enter your email address">
+      <button onclick="subscribePromo()">CLAIM NOW</button>
+    </div>
+  </div>
+
+  <!-- TRENDING -->
+  <div class="sec">
+    <div class="sec-tag">What's Hot</div>
+    <h2 class="sec-title">TRENDING <span>NOW</span></h2>
+    <div class="prod-grid" id="homeTrendGrid"></div>
+  </div>
+
+  <!-- BESTSELLERS -->
+  <div class="sec-dark"><div class="sec">
+    <div class="center" style="margin-bottom:2.5rem">
+      <div class="sec-tag">Most Loved</div>
+      <h2 class="sec-title sec-title-light">BEST <span style="color:var(--white)">SELLERS</span></h2>
+    </div>
+    <div class="prod-grid" id="homeBestGrid"></div>
+  </div></div>
+
+  <!-- STORY -->
+  <div class="story-grid">
+    <div class="story-img"><img src="https://images.unsplash.com/photo-1556909114-f6e7ad7d3136?w=700&q=80" alt="Our Story"></div>
+    <div class="story-text">
+      <div class="sec-tag">Our Story</div>
+      <h2>PASSION FOR <em>BEAUTIFUL THINGS</em></h2>
+      <p>LV Maison was built on one belief: true luxury is never accidental. Every piece in our edit is deliberately chosen, meticulously crafted, and designed to outlast every trend.</p>
+      <p>We work directly with master artisans across 30+ countries to bring you objects of lasting beauty and undeniable presence.</p>
+      <button class="btn-gold" onclick="go('about')" style="margin-top:1rem;align-self:flex-start">DISCOVER OUR JOURNEY</button>
+    </div>
+  </div>
+
+  <!-- NEWSLETTER -->
+  <div class="nl-sec">
+    <div class="sec-tag">Join Us</div>
+    <h2>THE LV <span style="color:var(--gold)">CIRCLE</span></h2>
+    <p>First access to new drops, private sales, and editorial inspiration.</p>
+    <div class="nl-form">
+      <input type="email" id="nlEmail" placeholder="Your email address">
+      <button onclick="subscribe()">JOIN</button>
+    </div>
+    <div class="soc-row">
+      <button class="soc-btn">📷</button>
+      <button class="soc-btn">📌</button>
+      <button class="soc-btn">👍</button>
+      <button class="soc-btn">🐦</button>
+      <button class="soc-btn">🎵</button>
+    </div>
+  </div>
+</div>
+
+<!-- ══ PRODUCTS ══ -->
+<div class="page" id="page-products">
+  <div class="page-top"><h1>THE EDIT</h1><p>Curated luxury — clothing, home, jewellery & more</p></div>
+  <div class="shop-layout">
+    <aside class="filters" id="filtersAside">
+      <h3>FILTER</h3>
+      <div class="fg"><label>Search</label><input class="fi" type="text" id="searchInp" placeholder="Search products…" oninput="renderProds()"></div>
+      <div class="fg">
+        <label>Category</label>
+        <div class="filter-pills">
+          <button class="fp active" data-c="all" onclick="setCat('all',this)">All</button>
+          <button class="fp" data-c="clothing" onclick="setCat('clothing',this)">Clothing</button>
+          <button class="fp" data-c="decor" onclick="setCat('decor',this)">Home Décor</button>
+          <button class="fp" data-c="jewellery" onclick="setCat('jewellery',this)">Jewellery</button>
+          <button class="fp" data-c="footwear" onclick="setCat('footwear',this)">Footwear</button>
+          <button class="fp" data-c="accessories" onclick="setCat('accessories',this)">Accessories</button>
+          <button class="fp" data-c="beauty" onclick="setCat('beauty',this)">Beauty</button>
+        </div>
+      </div>
+      <div class="fg"><label>Max Price: $<span id="priceLabel">2000</span></label><input class="price-sl" type="range" id="priceSlider" min="0" max="2000" value="2000" oninput="document.getElementById('priceLabel').textContent=this.value;renderProds()"></div>
+      <div class="fg"><label>Sort By</label><select class="fi-sel" id="sortSel" onchange="renderProds()"><option value="newest">Newest</option><option value="price-lo">Price: Low → High</option><option value="price-hi">Price: High → Low</option><option value="rating">Top Rated</option></select></div>
+    </aside>
+    <div>
+      <div class="toolbar"><span class="tc" id="prodCount">Loading…</span><button class="mob-filter-btn" onclick="document.getElementById('filtersAside').classList.toggle('open')">⊟ FILTER</button></div>
+      <div class="prod-grid" id="prodsGrid"></div>
+    </div>
+  </div>
+</div>
+
+<!-- ══ PRODUCT DETAIL ══ -->
+<div class="page" id="page-detail"><div style="padding-top:var(--nav-h)" id="detailWrap"></div></div>
+
+<!-- ══ CART ══ -->
+<div class="page" id="page-cart">
+  <div class="page-top"><h1>YOUR CART</h1></div>
+  <div class="cart-layout">
+    <div class="cart-items" id="cartItems"></div>
+    <div class="cart-sum">
+      <h3>ORDER SUMMARY</h3>
+      <div class="sum-rows" id="sumRows"></div>
+      <div class="sum-total"><span>TOTAL</span><span id="cartTotalEl">$0.00</span></div>
+      <div class="promo-row"><input type="text" id="promoCode" placeholder="Promo code"><button onclick="applyPromo()">APPLY</button></div>
+      <button class="btn-gold bfw" onclick="gotoCheckout()">PROCEED TO CHECKOUT</button>
+      <button class="btn-outline-text bfw" onclick="go('products')" style="margin-top:.75rem">CONTINUE SHOPPING</button>
+    </div>
+  </div>
+</div>
+
+<!-- ══ CHECKOUT ══ -->
+<div class="page" id="page-checkout">
+  <div class="page-top"><h1>CHECKOUT</h1></div>
+  <div class="co-layout">
+    <div class="co-step">
+      <h3>CUSTOMER INFORMATION</h3>
+      <div class="form-row">
+        <div class="form-group"><label>Full Name *</label><input type="text" id="coName" placeholder="Jane Doe"></div>
+        <div class="form-group"><label>Phone *</label><input type="tel" id="coPhone" placeholder="+1 234 567 8900"></div>
+      </div>
+      <div class="form-group"><label>Email *</label><input type="email" id="coEmail" placeholder="jane@email.com"></div>
+      <div class="form-group"><label>Address *</label><input type="text" id="coAddr" placeholder="Street address, apartment…"></div>
+      <div class="form-row">
+        <div class="form-group"><label>City *</label><input type="text" id="coCity" placeholder="New York"></div>
+        <div class="form-group"><label>Postal Code *</label><input type="text" id="coPostal" placeholder="10001"></div>
+      </div>
+      <div class="form-group"><label>Country *</label><select id="coCountry"><option value="">Select Country</option><option>United States</option><option>United Kingdom</option><option>Canada</option><option>Australia</option><option>UAE</option><option>Pakistan</option><option>India</option><option>Germany</option><option>France</option><option>Italy</option><option>Japan</option><option>Other</option></select></div>
+      <h3 style="margin-top:2rem">PAYMENT METHOD</h3>
+      <div class="pay-opts" id="payOpts">
+        <label class="pay-opt sel"><input type="radio" name="pay" value="cod" checked><div class="pay-card">🚚<div><strong>Cash on Delivery</strong><small>Pay when your order arrives</small></div></div></label>
+        <label class="pay-opt"><input type="radio" name="pay" value="card"><div class="pay-card">💳<div><strong>Credit / Debit Card</strong><small>Secure online payment</small></div></div></label>
+      </div>
+      <button class="btn-gold bfw" onclick="placeOrder()" style="margin-top:1.5rem">🎉 PLACE ORDER</button>
+    </div>
+    <div class="co-sum"><h3>YOUR ORDER</h3><div id="coItems"></div><div class="co-totals" id="coTotals"></div></div>
+  </div>
+</div>
+
+<!-- ══ CONFIRM ══ -->
+<div class="page" id="page-confirm">
+  <div class="confirm-wrap">
+    <div class="confirm-icon">✦</div>
+    <h1>ORDER CONFIRMED</h1>
+    <p>Thank you! Your order has been received and is being prepared with the utmost care.</p>
+    <div class="confirm-box" id="confirmBox"></div>
+    <button class="btn-gold" onclick="go('home')">CONTINUE SHOPPING</button>
+  </div>
+</div>
+
+<!-- ══ LOGIN ══ -->
+<div class="page" id="page-login">
+  <div class="auth-wrap" style="padding-top:var(--nav-h)">
+    <div class="auth-vis"><img src="https://images.unsplash.com/photo-1616486338812-3dadae4b4ace?w=800&q=80" alt="LV Maison"><div class="auth-vis-ov"><div class="vl">LV MAISON</div><blockquote>"True luxury is not about money. It's about rarity, elegance, and undeniable presence."</blockquote></div></div>
+    <div class="auth-form-side">
+      <div class="auth-box">
+        <h2>WELCOME BACK</h2>
+        <p class="auth-sub">Sign in to your LV Maison account</p>
+        <div class="form-group"><label>Email</label><input type="email" id="loginEmail" placeholder="your@email.com"></div>
+        <div class="form-group"><label>Password</label><div class="pw-wrap"><input type="password" id="loginPass" placeholder="••••••••"><button class="pw-eye" onclick="togglePw('loginPass',this)">SHOW</button></div></div>
+        <div style="display:flex;justify-content:flex-end;margin-bottom:1.5rem"><a href="#" class="lg" style="font-size:.78rem;font-family:Rajdhani,sans-serif;font-weight:700;letter-spacing:1px">FORGOT PASSWORD?</a></div>
+        <button class="btn-gold bfw" onclick="login()">SIGN IN</button>
+        <div class="auth-div">OR</div>
+        <button class="btn-outline-text bfw" onclick="loginAdmin()">🔐 ADMIN LOGIN</button>
+        <p class="auth-switch">No account? <a href="#" class="lg" onclick="go('signup')">Create one</a></p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ══ SIGNUP ══ -->
+<div class="page" id="page-signup">
+  <div class="auth-wrap" style="padding-top:var(--nav-h)">
+    <div class="auth-vis"><img src="https://images.unsplash.com/photo-1615529151169-7b1ff50dc7f2?w=800&q=80" alt="LV Maison"><div class="auth-vis-ov"><div class="vl">LV MAISON</div><blockquote>"Your home should tell the story of who you are, and be a collection of what you love."</blockquote></div></div>
+    <div class="auth-form-side">
+      <div class="auth-box">
+        <h2>CREATE ACCOUNT</h2>
+        <p class="auth-sub">Join the LV Maison Circle</p>
+        <div class="form-row">
+          <div class="form-group"><label>First Name</label><input type="text" id="signFirst" placeholder="Jane"></div>
+          <div class="form-group"><label>Last Name</label><input type="text" id="signLast" placeholder="Doe"></div>
+        </div>
+        <div class="form-group"><label>Email</label><input type="email" id="signEmail" placeholder="your@email.com"></div>
+        <div class="form-group"><label>Password</label><div class="pw-wrap"><input type="password" id="signPass" placeholder="Min 8 characters"><button class="pw-eye" onclick="togglePw('signPass',this)">SHOW</button></div></div>
+        <div class="form-group"><label>Confirm Password</label><input type="password" id="signPass2" placeholder="Repeat password"></div>
+        <label class="ck-lbl"><input type="checkbox" id="agreeBox"> I agree to the <a href="#" class="lg">Terms & Privacy Policy</a></label>
+        <button class="btn-gold bfw" onclick="signup()">CREATE ACCOUNT</button>
+        <p class="auth-switch">Already a member? <a href="#" class="lg" onclick="go('login')">Sign in</a></p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ══ ABOUT ══ -->
+<div class="page" id="page-about">
+  <div class="page-top"><h1>OUR STORY</h1><p>Luxury, craftsmanship, purpose</p></div>
+  <div class="sec">
+    <div class="about-intro">
+      <div class="about-img"><img src="https://images.unsplash.com/photo-1556909114-f6e7ad7d3136?w=700&q=80" alt="About"></div>
+      <div>
+        <div class="sec-tag">Who We Are</div>
+        <h2 class="sec-title">CRAFTING BEAUTY<br><span>SINCE 2020</span></h2>
+        <p style="color:var(--muted);line-height:1.9;margin-bottom:1rem">LV Maison was founded with one conviction: that true luxury is never mass-produced. We partner with master artisans worldwide, ensuring every piece carries craft, intention, and beauty that endures.</p>
+        <p style="color:var(--muted);line-height:1.9">From hand-embroidered textiles to hand-blown glass vessels, every piece in our edit represents the finest traditions reimagined for those who demand more.</p>
+        <div class="about-stats">
+          <div class="a-stat"><span class="sn">500+</span><span>Products</span></div>
+          <div class="a-stat"><span class="sn">50+</span><span>Artisans</span></div>
+          <div class="a-stat"><span class="sn">10K+</span><span>Customers</span></div>
+          <div class="a-stat"><span class="sn">30+</span><span>Countries</span></div>
+        </div>
+      </div>
+    </div>
+    <div class="center" style="margin-bottom:2rem"><div class="sec-tag">Our Values</div><h2 class="sec-title">WHAT WE <span>STAND FOR</span></h2></div>
+    <div class="values">
+      <div class="val-card"><div class="val-icon">◈</div><h3>QUALITY FIRST</h3><p>Every item passes our 30-point quality inspection before reaching your hands.</p></div>
+      <div class="val-card"><div class="val-icon">◈</div><h3>SUSTAINABLE</h3><p>Ethically sourced materials, eco-friendly packaging, carbon-offset shipping.</p></div>
+      <div class="val-card"><div class="val-icon">◈</div><h3>ARTISAN MADE</h3><p>Fair wages, preserved traditions, genuine craft — not factory production.</p></div>
+      <div class="val-card"><div class="val-icon">◈</div><h3>LIFETIME SERVICE</h3><p>Our relationship doesn't end at purchase. Lifetime care and support, always.</p></div>
+    </div>
+  </div>
+</div>
+
+<!-- ══ CONTACT ══ -->
+<div class="page" id="page-contact">
+  <div class="page-top"><h1>GET IN TOUCH</h1><p>We'd love to hear from you</p></div>
+  <div class="contact-layout">
+    <div class="c-info">
+      <h3>CONTACT INFO</h3>
+      <div class="c-items">
+        <div class="c-item"><span class="c-icon">✉</span><div><strong>Email</strong><a href="mailto:hello@lvmaison.com">hello@lvmaison.com</a></div></div>
+        <div class="c-item"><span class="c-icon">✉</span><div><strong>Business</strong><a href="mailto:business@lvmaison.com">business@lvmaison.com</a></div></div>
+        <div class="c-item"><span class="c-icon">☎</span><div><strong>Phone</strong><a href="tel:+12025551234">+1 (202) 555-1234</a></div></div>
+        <div class="c-item"><span class="c-icon">💬</span><div><strong>WhatsApp</strong><a href="https://wa.me/12025551234">Chat with us →</a></div></div>
+        <div class="c-item"><span class="c-icon">◎</span><div><strong>Address</strong><span>123 Maison Boulevard<br>Beverly Hills, CA 90210</span></div></div>
+      </div>
+      <div class="soc-row" style="justify-content:flex-start"><button class="soc-btn">📷</button><button class="soc-btn">📌</button><button class="soc-btn">👍</button><button class="soc-btn">🐦</button></div>
+    </div>
+    <div class="c-form-box">
+      <h3>SEND A MESSAGE</h3>
+      <form onsubmit="sendContact(event)">
+        <div class="form-row">
+          <div class="form-group"><label>Name</label><input type="text" placeholder="Jane Doe" required></div>
+          <div class="form-group"><label>Email</label><input type="email" placeholder="jane@email.com" required></div>
+        </div>
+        <div class="form-group"><label>Subject</label><input type="text" placeholder="How can we help?"></div>
+        <div class="form-group"><label>Message</label><textarea rows="5" placeholder="Tell us more…"></textarea></div>
+        <button type="submit" class="btn-gold">SEND MESSAGE</button>
+      </form>
+    </div>
+  </div>
+</div>
+
+<!-- ══ ADMIN LOGIN ══ -->
+<div class="page" id="page-admin-login">
+  <div class="gate-wrap">
+    <div class="gate-box">
+      <div class="gate-logo">
+        <svg width="64" height="64" viewBox="0 0 64 64" fill="none">
+          <rect x="1.5" y="1.5" width="61" height="61" stroke="#c9a84c" stroke-width="1.5"/>
+          <text x="32" y="44" text-anchor="middle" font-family="Bebas Neue, sans-serif" font-size="28" fill="#c9a84c" letter-spacing="4">LV</text>
+        </svg>
+      </div>
+      <h2>ADMIN ACCESS</h2>
+      <p>Restricted to authorized administrators only.</p>
+      <div class="gate-err" id="gateErr"></div>
+      <div class="form-group"><label>Admin Email</label><input type="email" id="gEmail" placeholder="admin@lvmaison.com" onkeydown="if(event.key==='Enter')gateLogin()"></div>
+      <div class="form-group"><label>Password</label><div class="pw-wrap"><input type="password" id="gPass" placeholder="Admin password" onkeydown="if(event.key==='Enter')gateLogin()"><button class="pw-eye" onclick="togglePw('gPass',this)">SHOW</button></div></div>
+      <button class="btn-gold bfw" onclick="gateLogin()" style="margin-top:.5rem">🔓 ENTER DASHBOARD</button>
+      <button class="btn-outline-text bfw" onclick="go('home')" style="margin-top:.75rem">← BACK TO STORE</button>
+      <div class="gate-hint">Demo: <code>admin@lvmaison.com</code> / <code>admin2025</code></div>
+    </div>
+  </div>
+</div>
+
+<!-- ══ ADMIN PANEL ══ -->
+<div class="page" id="page-admin">
+  <div class="adm-wrap">
+    <aside class="adm-sidebar" id="admSidebar">
+      <div class="adm-brand">
+        <svg width="28" height="28" viewBox="0 0 28 28" fill="none"><rect x="1" y="1" width="26" height="26" stroke="#c9a84c" stroke-width="1"/><text x="14" y="20" text-anchor="middle" font-family="Bebas Neue" font-size="12" fill="#c9a84c" letter-spacing="2">LV</text></svg>
+        <div><div class="adm-brand-name">LV MAISON</div><div class="adm-brand-tag">Admin Panel</div></div>
+      </div>
+      <div class="adm-user"><div class="adm-av">A</div><div><div class="adm-uname">Administrator</div><div class="adm-urole">Super Admin</div></div></div>
+      <nav class="adm-nav">
+        <div class="adm-grp">Overview</div>
+        <button class="adm-btn active" data-s="dashboard" onclick="showSec('dashboard',this)"><span class="ico">📊</span> Dashboard</button>
+        <button class="adm-btn" data-s="analytics" onclick="showSec('analytics',this)"><span class="ico">📈</span> Analytics</button>
+        <div class="adm-grp">Catalogue</div>
+        <button class="adm-btn" data-s="products" onclick="showSec('products',this)"><span class="ico">🛍</span> Products</button>
+        <button class="adm-btn" data-s="addprod" onclick="showSec('addprod',this)"><span class="ico">➕</span> Add Product</button>
+        <div class="adm-grp">Sales</div>
+        <button class="adm-btn" data-s="orders" onclick="showSec('orders',this)"><span class="ico">📦</span> Orders</button>
+        <button class="adm-btn" data-s="customers" onclick="showSec('customers',this)"><span class="ico">👤</span> Customers</button>
+        <div class="adm-grp">Engagement</div>
+        <button class="adm-btn" data-s="subscribers" onclick="showSec('subscribers',this)"><span class="ico">✉</span> Subscribers</button>
+        <button class="adm-btn" data-s="reviews" onclick="showSec('reviews',this)"><span class="ico">⭐</span> Reviews</button>
+        <div class="adm-grp">Config</div>
+        <button class="adm-btn" data-s="settings" onclick="showSec('settings',this)"><span class="ico">⚙</span> Settings</button>
+      </nav>
+      <button class="adm-logout" onclick="adminLogout()">⬅ LOGOUT</button>
+    </aside>
+    <div class="adm-body">
+      <div class="adm-topbar">
+        <button class="adm-mob-toggle" onclick="document.getElementById('admSidebar').classList.toggle('open')">☰</button>
+        <div class="adm-topbar-title" id="admTitle">DASHBOARD</div>
+        <div class="adm-topbar-right">
+          <span style="font-size:.72rem;color:var(--muted);font-family:Rajdhani,sans-serif;letter-spacing:1px">Updated: <span id="admTime"></span></span>
+          <button class="btn-gold bsm" onclick="go('home')">🏠 STORE</button>
+        </div>
+      </div>
+      <div class="adm-content">
+
+        <!-- DASHBOARD -->
+        <div class="adm-sec active" id="sec-dashboard">
+          <div class="kpi-grid" id="kpiGrid"></div>
+          <div class="charts-row">
+            <div class="chart-box"><div class="chart-hdr"><h4>REVENUE TREND</h4><select onchange="drawRevChart(this.value)"><option value="30" selected>30 Days</option><option value="7">7 Days</option><option value="90">90 Days</option></select></div><canvas id="revChart" height="200"></canvas></div>
+            <div class="chart-box"><div class="chart-hdr"><h4>CATEGORY SPLIT</h4></div><canvas id="catChart" height="200"></canvas></div>
+          </div>
+          <div class="dash-bottom">
+            <div class="dash-panel">
+              <div class="dash-phdr"><h4>RECENT ORDERS</h4><button onclick="showSec('orders',document.querySelector('[data-s=orders]'))" style="font-size:.72rem;color:var(--gold);font-family:Rajdhani,sans-serif;font-weight:700;letter-spacing:1px">VIEW ALL →</button></div>
+              <div id="recentOrds"></div>
+            </div>
+            <div class="dash-panel"><h4>TOP PRODUCTS</h4><div id="topProds"></div></div>
+          </div>
+        </div>
+
+        <!-- ANALYTICS -->
+        <div class="adm-sec" id="sec-analytics">
+          <div class="anal-hdr">
+            <h2>ORDER ANALYTICS</h2>
+            <div class="anal-filters">
+              <select id="analRange" onchange="renderAnalytics()"><option value="all">All Time</option><option value="30">Last 30 Days</option><option value="7">Last 7 Days</option><option value="90">Last 90 Days</option></select>
+              <button class="btn-gold bsm" onclick="exportCSV()">⬇ EXPORT CSV</button>
+            </div>
+          </div>
+          <div class="anal-kpis" id="analKpis"></div>
+          <div class="anal-charts">
+            <div class="ac wide"><h4>REVENUE OVER TIME</h4><canvas id="aRevChart" height="220"></canvas></div>
+            <div class="ac"><h4>ORDERS PER DAY</h4><canvas id="aOrdChart" height="220"></canvas></div>
+            <div class="ac"><h4>CATEGORY SPLIT</h4><canvas id="aCatChart" height="220"></canvas></div>
+            <div class="ac"><h4>PAYMENT METHODS</h4><canvas id="aPayChart" height="220"></canvas></div>
+            <div class="ac"><h4>ORDER STATUS</h4><canvas id="aStatChart" height="220"></canvas></div>
+            <div class="ac"><h4>TOP COUNTRIES</h4><div class="ctry-list" id="ctryList"></div></div>
+          </div>
+          <div class="order-log">
+            <div class="log-hdr"><h4>FULL ORDER LOG</h4><input type="text" id="logSearch" placeholder="Search orders…" oninput="filterLog(this.value)"></div>
+            <div class="tbl-wrap" id="orderLogTbl"></div>
+          </div>
+        </div>
+
+        <!-- PRODUCTS -->
+        <div class="adm-sec" id="sec-products">
+          <div class="adm-sec-hdr">
+            <h2>PRODUCTS <span id="admProdCnt" style="font-size:1rem;color:var(--muted);font-family:'DM Sans',sans-serif;font-weight:400"></span></h2>
+            <div style="display:flex;gap:.75rem;align-items:center">
+              <input class="fi" type="text" id="admProdSearch" placeholder="Search products…" oninput="renderAdmProds()" style="width:180px">
+              <button class="btn-gold bsm" onclick="showSec('addprod',document.querySelector('[data-s=addprod]'))">+ ADD PRODUCT</button>
+            </div>
+          </div>
+          <div class="tbl-wrap" id="admProdsTbl"></div>
+        </div>
+
+        <!-- ADD/EDIT PRODUCT -->
+        <div class="adm-sec" id="sec-addprod">
+          <h2 id="addProdTitle">ADD NEW PRODUCT</h2>
+          <div class="adm-form">
+            <input type="hidden" id="editId">
+            <div class="form-row">
+              <div class="form-group"><label>Product Name *</label><input type="text" id="pName" placeholder="e.g., Velvet Throw Cushion"></div>
+              <div class="form-group"><label>Category *</label>
+                <select id="pCat">
+                  <option value="">Select…</option>
+                  <option value="clothing">Clothing</option>
+                  <option value="decor">Home Décor</option>
+                  <option value="jewellery">Jewellery</option>
+                  <option value="footwear">Footwear</option>
+                  <option value="accessories">Accessories</option>
+                  <option value="beauty">Beauty</option>
+                </select>
+              </div>
+            </div>
+            <div class="form-row">
+              <div class="form-group"><label>Price ($) *</label><input type="number" id="pPrice" placeholder="99.99" step="0.01" min="0"></div>
+              <div class="form-group"><label>Original / Compare Price ($)</label><input type="number" id="pOrigPrice" placeholder="Leave blank if no sale" step="0.01" min="0"></div>
+            </div>
+            <div class="form-row">
+              <div class="form-group"><label>Stock Quantity *</label><input type="number" id="pStock" placeholder="50" min="0"></div>
+              <div class="form-group"><label>Tags (comma separated)</label><input type="text" id="pTags" placeholder="new, trending, bestseller, sale"></div>
+            </div>
+            <div class="form-group"><label>Description *</label><textarea id="pDesc" rows="4" placeholder="Describe your product in detail…"></textarea></div>
+            <div class="form-row">
+              <div class="form-group"><label>Available Colors (comma separated)</label><input type="text" id="pColors" placeholder="Black, White, Gold, Navy, Red, Ivory"></div>
+              <div class="form-group"><label>Available Sizes (comma separated)</label><input type="text" id="pSizes" placeholder="XS, S, M, L, XL or Small, Medium, Large"></div>
+            </div>
+            <div class="form-row">
+              <div class="form-group"><label>Image URL 1 * (Main)</label><input type="url" id="pImg1" placeholder="https://images.unsplash.com/…" onblur="updPrev()"></div>
+              <div class="form-group"><label>Image URL 2</label><input type="url" id="pImg2" placeholder="https://…" onblur="updPrev()"></div>
+            </div>
+            <div class="form-row">
+              <div class="form-group"><label>Image URL 3</label><input type="url" id="pImg3" placeholder="https://…" onblur="updPrev()"></div>
+              <div class="form-group"><label>Product Video URL (YouTube embed)</label><input type="url" id="pVideo" placeholder="https://www.youtube.com/embed/…"></div>
+            </div>
+            <div class="img-prev-row" id="imgPrevRow"></div>
+            <div style="display:flex;gap:1rem;justify-content:flex-end">
+              <button class="btn-outline-text" onclick="cancelEdit()">CANCEL</button>
+              <button class="btn-gold" onclick="saveProd()">💾 SAVE PRODUCT</button>
+            </div>
+          </div>
+        </div>
+
+        <!-- ORDERS -->
+        <div class="adm-sec" id="sec-orders">
+          <div class="adm-sec-hdr">
+            <h2>ORDERS</h2>
+            <div style="display:flex;gap:.75rem;align-items:center">
+              <select class="fi-sel" id="ordFilt" onchange="renderAdmOrds()" style="width:160px"><option value="all">All Statuses</option><option>Confirmed</option><option>Processing</option><option>Shipped</option><option>Delivered</option></select>
+              <button class="btn-gold bsm" onclick="exportCSV()">⬇ EXPORT</button>
+            </div>
+          </div>
+          <div class="tbl-wrap" id="admOrdsTbl"></div>
+        </div>
+
+        <!-- CUSTOMERS -->
+        <div class="adm-sec" id="sec-customers"><h2>CUSTOMERS</h2><div class="tbl-wrap" id="admCustTbl"></div></div>
+
+        <!-- SUBSCRIBERS -->
+        <div class="adm-sec" id="sec-subscribers">
+          <div class="adm-sec-hdr"><h2>SUBSCRIBERS</h2><button class="btn-gold bsm" onclick="exportSubs()">⬇ EXPORT</button></div>
+          <div class="tbl-wrap" id="admSubsTbl"></div>
+        </div>
+
+        <!-- REVIEWS -->
+        <div class="adm-sec" id="sec-reviews"><h2>REVIEWS</h2><div class="tbl-wrap" id="admRevsTbl"></div></div>
+
+        <!-- SETTINGS -->
+        <div class="adm-sec" id="sec-settings">
+          <h2>SETTINGS</h2>
+          <div class="sett-grid">
+            <div class="sett-card">
+              <h4>CHANGE PASSWORD</h4>
+              <div class="form-group"><label>Current Password</label><input type="password" id="sOld" placeholder="••••••••"></div>
+              <div class="form-group"><label>New Password</label><input type="password" id="sNew" placeholder="Min 8 characters"></div>
+              <div class="form-group"><label>Confirm New</label><input type="password" id="sConf" placeholder="Repeat"></div>
+              <button class="btn-gold bsm" onclick="changePass()">UPDATE</button>
+            </div>
+            <div class="sett-card">
+              <h4>STORE TOOLS</h4>
+              <div style="display:flex;flex-direction:column;gap:.75rem">
+                <button class="btn-outline-gold bsm" onclick="genDemoOrds()">🎲 Generate Demo Orders</button>
+                <button class="btn-outline-gold bsm" onclick="clearOrds()">🗑 Clear All Orders</button>
+                <button class="btn-outline-gold bsm" onclick="exportDB()">⬇ Export Full DB</button>
+              </div>
+            </div>
+            <div class="sett-card">
+              <h4>ADMIN INFO</h4>
+              <div class="cred-row"><span>Email</span><code>admin@lvmaison.com</code></div>
+              <div class="cred-row"><span>Role</span><code>Super Admin</code></div>
+              <div class="cred-row"><span>Access</span><code>Full</code></div>
+              <div class="cred-row"><span>Theme</span><code id="themeInfo">Light</code></div>
+              <div class="cred-row"><span>Session</span><code style="color:#4a8c5c">Active</code></div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+</div>
+
+</div><!-- /app -->
+
+<!-- FOOTER -->
+<footer id="siteFooter">
+  <div class="ft-top">
+    <div class="ft-brand">
+      <svg width="56" height="56" viewBox="0 0 56 56" fill="none"><rect x="1" y="1" width="54" height="54" stroke="#c9a84c" stroke-width="1"/><text x="28" y="38" text-anchor="middle" font-family="Bebas Neue" font-size="24" fill="#c9a84c" letter-spacing="3">LV</text></svg>
+      <p style="margin-top:1rem">Defining luxury through craft, intention, and beauty that endures beyond every trend.</p>
+    </div>
+    <div class="ft-col"><h4>Shop</h4><a onclick="filterGo('clothing')">Clothing</a><a onclick="filterGo('decor')">Home Décor</a><a onclick="filterGo('jewellery')">Jewellery</a><a onclick="filterGo('footwear')">Footwear</a><a onclick="filterGo('beauty')">Beauty</a></div>
+    <div class="ft-col"><h4>Company</h4><a onclick="go('about')">About Us</a><a onclick="go('contact')">Contact</a><a href="#">Press</a><a href="#">Careers</a></div>
+    <div class="ft-col"><h4>Support</h4><a href="#">Size Guide</a><a href="#">FAQ</a><a href="#">Shipping</a><a href="#">Returns</a></div>
+    <div class="ft-col"><h4>Legal</h4><a href="#">Privacy</a><a href="#">Terms</a><a href="#">Cookies</a><a href="#">Sitemap</a></div>
+  </div>
+  <div class="ft-bot">
+    <p>© 2025 LV Maison. All rights reserved.</p>
+    <div class="ft-legal"><a href="#">Privacy Policy</a><a href="#">Terms of Service</a></div>
+  </div>
+</footer>
+
+<script>
+/* ═══════════════════════════════════════════
+   LV MAISON — Complete Application
+   Monogram Logo | Bold Editorial | All Features
+═══════════════════════════════════════════ */
+'use strict';
+
+// ── DB ──
+const DB={g:k=>{try{return JSON.parse(localStorage.getItem('lvm_'+k));}catch{return null;}},s:(k,v)=>localStorage.setItem('lvm_'+k,JSON.stringify(v)),d:k=>localStorage.removeItem('lvm_'+k)};
+
+// ── STATE ──
+let user=null,cart=[],wishlist=[],activecat='all',chartInst={},starVal=5;
+
+// ── COLOR MAP ──
+const CMAP={
+  'Black':'#1a1208','White':'#f9f5f0','Gold':'#c9a84c','Navy':'#0d1b3e',
+  'Red':'#8b1a1a','Ivory':'#f5f0e0','Cream':'#e8d9b8','Brown':'#5c3010',
+  'Camel':'#c4945a','Burgundy':'#6e0a20','Forest':'#1a3d2e','Slate':'#3a4555',
+  'Rose':'#c8607a','Blush':'#e8a8b0','Terracotta':'#b84030','Stone':'#8a7a68',
+  'Champagne':'#d4b880','Charcoal':'#2a2a2a','Teal':'#0a6060','Mauve':'#8a5a6e',
+  'Sage':'#6a8860','Cobalt':'#1030a0','Sand':'#c8aa78','Silver':'#a0a8b0'
+};
+
+// ── 12 SEED PRODUCTS (6 categories) ──
+const SEED=[
+  {id:'p1',name:'Velvet Royale Cushion Set',category:'decor',price:165,origPrice:null,stock:22,description:'Set of two hand-crafted velvet cushions with 24k gold thread embroidery. Each piece is individually hand-finished by artisans in Milan. Adds instant opulence to any sofa or bed.',images:['https://images.unsplash.com/photo-1586023492125-27b2c045efd7?w=700&q=80','https://images.unsplash.com/photo-1555041469-a586c61ea9bc?w=700&q=80','https://images.unsplash.com/photo-1540518614846-7eded433c457?w=700&q=80'],video:'https://www.youtube.com/embed/dQw4w9WgXcQ',colors:['Black','Ivory','Navy','Burgundy','Rose'],sizes:['40×40cm','50×50cm','60×40cm'],tags:['new','trending'],rating:4.8,reviews:32},
+  {id:'p2',name:'Silk Noir Evening Gown',category:'clothing',price:345,origPrice:420,stock:8,description:'Floor-length pure mulberry silk gown with subtle draped neckline and hand-finished seams. Ethical production, certified sustainable silk. The quintessential statement piece for evenings of distinction.',images:['https://images.unsplash.com/photo-1566479179817-3f6b20e5b0ce?w=700&q=80','https://images.unsplash.com/photo-1558769132-cb1aea458c5e?w=700&q=80','https://images.unsplash.com/photo-1529374255404-311a2a4f1fd9?w=700&q=80'],video:'https://www.youtube.com/embed/dQw4w9WgXcQ',colors:['Black','Red','Navy','Burgundy','Champagne'],sizes:['XS','S','M','L','XL'],tags:['bestseller','sale'],rating:4.9,reviews:18},
+  {id:'p3',name:'Moroccan Brass Lantern',category:'decor',price:129,origPrice:null,stock:15,description:'Handmade brass lantern with intricate pierced filigree patterns. Each one unique — casts mesmerising geometric light patterns. For candles or LED, indoor or covered outdoor use.',images:['https://images.unsplash.com/photo-1616486338812-3dadae4b4ace?w=700&q=80','https://images.unsplash.com/photo-1555041469-a586c61ea9bc?w=700&q=80','https://images.unsplash.com/photo-1616137466211-f939a420be84?w=700&q=80'],video:'https://www.youtube.com/embed/dQw4w9WgXcQ',colors:['Gold','Black','Teal'],sizes:['Small 20cm','Medium 30cm','Large 40cm'],tags:['new','bestseller'],rating:4.7,reviews:45},
+  {id:'p4',name:'Cashmere Wrap Coat',category:'clothing',price:489,origPrice:null,stock:5,description:'100% Grade A Mongolian cashmere wrap coat. Ethically sourced, hand-woven in Northern Italy. Timeless silhouette, weightless warmth. The definitive luxury outerwear investment.',images:['https://images.unsplash.com/photo-1490481651871-ab68de25d43d?w=700&q=80','https://images.unsplash.com/photo-1539109136881-3be0616acf4b?w=700&q=80','https://images.unsplash.com/photo-1515886657613-9f3515b0c78f?w=700&q=80'],video:'https://www.youtube.com/embed/dQw4w9WgXcQ',colors:['Cream','Camel','Charcoal','Stone'],sizes:['XS','S','M','L','XL'],tags:['trending'],rating:5.0,reviews:12},
+  {id:'p5',name:'18K Gold Pendant Set',category:'jewellery',price:295,origPrice:360,stock:18,description:'18k gold-plated layered pendant necklace with matching drop earrings. Set with freshwater pearls and hand-set micro pavé diamonds. Hallmarked and certified. Comes with luxury presentation case.',images:['https://images.unsplash.com/photo-1515562141207-7a88fb7ce338?w=700&q=80','https://images.unsplash.com/photo-1535632066927-ab7c9ab60908?w=700&q=80','https://images.unsplash.com/photo-1506630448388-4e683c67ddb0?w=700&q=80'],video:'https://www.youtube.com/embed/dQw4w9WgXcQ',colors:['Gold','Silver','Rose'],sizes:['One Size'],tags:['new','trending','sale'],rating:4.9,reviews:54},
+  {id:'p6',name:'Kaftan Embroidered Dress',category:'clothing',price:265,origPrice:320,stock:12,description:'Flowing kaftan with intricate hand-embroidery along the neckline and cuffs by artisans in Jaipur. Lightweight georgette fabric. Perfect for resort, garden parties, and formal occasions.',images:['https://images.unsplash.com/photo-1469334031218-e382a71b716b?w=700&q=80','https://images.unsplash.com/photo-1571513722275-4b41940f54b8?w=700&q=80','https://images.unsplash.com/photo-1566479179817-3f6b20e5b0ce?w=700&q=80'],video:'https://www.youtube.com/embed/dQw4w9WgXcQ',colors:['Ivory','Cream','Gold','Sand'],sizes:['XS','S','M','L','XL','2XL'],tags:['trending','bestseller','sale'],rating:4.8,reviews:37},
+  {id:'p7',name:'Leather Oxford Brogues',category:'footwear',price:325,origPrice:null,stock:20,description:'Hand-welted full grain calf leather Oxford brogues. Goodyear welted construction, leather sole with rubber toe-cap. Made in Northampton, England. Each pair takes 8 hours to craft.',images:['https://images.unsplash.com/photo-1542291026-7eec264c27ff?w=700&q=80','https://images.unsplash.com/photo-1549298916-b41d501d3772?w=700&q=80','https://images.unsplash.com/photo-1460353581641-37baddab0fa2?w=700&q=80'],video:'https://www.youtube.com/embed/dQw4w9WgXcQ',colors:['Black','Brown','Tan','Burgundy'],sizes:['5','6','7','8','9','10','11','12'],tags:['new'],rating:4.7,reviews:29},
+  {id:'p8',name:'Persian Silk Rug 2×3m',category:'decor',price:1250,origPrice:null,stock:3,description:'Hand-knotted in Tabriz, Iran. Pure silk pile with cotton warp. 350 knots per square inch — a museum-quality heirloom piece that transforms any room into a sanctuary of cultivated taste.',images:['https://images.unsplash.com/photo-1555041469-a586c61ea9bc?w=700&q=80','https://images.unsplash.com/photo-1574182245530-967d9b3831af?w=700&q=80','https://images.unsplash.com/photo-1616137466211-f939a420be84?w=700&q=80'],video:'https://www.youtube.com/embed/dQw4w9WgXcQ',colors:['Red','Navy','Gold','Forest'],sizes:['2×3m','3×4m','4×6m'],tags:['bestseller'],rating:5.0,reviews:9},
+  {id:'p9',name:'Silk & Cashmere Scarf',category:'accessories',price:185,origPrice:null,stock:25,description:'60% silk, 40% cashmere blend. Hand-rolled edges, hand-painted with archival dyes. Inspired by Mughal garden motifs. Lightweight enough for summer, warm enough for winter.',images:['https://images.unsplash.com/photo-1520367745676-56196632073f?w=700&q=80','https://images.unsplash.com/photo-1608731267464-c0c889c2ff92?w=700&q=80','https://images.unsplash.com/photo-1591047139829-d91aecb6caea?w=700&q=80'],video:'https://www.youtube.com/embed/dQw4w9WgXcQ',colors:['Ivory','Gold','Navy','Rose','Black'],sizes:['70×180cm','90×200cm'],tags:['new','trending'],rating:4.8,reviews:41},
+  {id:'p10',name:'Crystal Chandelier 60cm',category:'decor',price:899,origPrice:null,stock:6,description:'Handcrafted chandelier with 72 Swarovski-grade crystal droplets. Creates a breathtaking prismatic light display. Professional installation guide included. Suitable for 3–4m ceilings.',images:['https://images.unsplash.com/photo-1513506003901-1e6a229e2d15?w=700&q=80','https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=700&q=80','https://images.unsplash.com/photo-1493809842364-78817add7ffb?w=700&q=80'],video:'https://www.youtube.com/embed/dQw4w9WgXcQ',colors:['Clear','Smoke','Champagne'],sizes:['40cm','60cm','80cm','100cm'],tags:['bestseller'],rating:4.9,reviews:16},
+  {id:'p11',name:'Oud & Amber Perfume 100ml',category:'beauty',price:195,origPrice:null,stock:30,description:'An opulent fragrance built around rare Cambodian oud, warm amber, and Damascene rose. Hand-blended by master perfumers in Grasse. Long-wearing, sillage-heavy. Presented in a hand-blown glass flacon.',images:['https://images.unsplash.com/photo-1541643600914-78b084683702?w=700&q=80','https://images.unsplash.com/photo-1592945403407-9caf930b3f54?w=700&q=80','https://images.unsplash.com/photo-1595425970377-c9703cf48b6a?w=700&q=80'],video:'https://www.youtube.com/embed/dQw4w9WgXcQ',colors:['Gold bottle','Black bottle'],sizes:['50ml','100ml','200ml'],tags:['new','trending'],rating:4.9,reviews:67},
+  {id:'p12',name:'Velvet Blazer',category:'clothing',price:299,origPrice:null,stock:14,description:'Structured velvet blazer with 24k gold-plated button detail. Cut from premium Italian velvet. Fully lined with silk organza. A confident, commanding presence in any room.',images:['https://images.unsplash.com/photo-1594938298603-c8148c4b4cd0?w=700&q=80','https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=700&q=80','https://images.unsplash.com/photo-1553345880-a99e476c8f74?w=700&q=80'],video:'https://www.youtube.com/embed/dQw4w9WgXcQ',colors:['Black','Navy','Burgundy','Forest'],sizes:['XS','S','M','L','XL'],tags:['new','trending'],rating:4.7,reviews:21},
+];
+
+const SEED_REVS={
+  p1:[{id:'rv1',user:'Sophia M.',rating:5,date:'Mar 12, 2025',text:'Absolutely stunning. The gold embroidery is exquisite.'},{id:'rv2',user:'Layla A.',rating:5,date:'Feb 28, 2025',text:'Museum quality. Worth every penny.'}],
+  p2:[{id:'rv3',user:'Camille D.',rating:5,date:'Mar 8, 2025',text:'Wore to a gala — received endless compliments!'}],
+  p11:[{id:'rv4',user:'Rania K.',rating:5,date:'Mar 5, 2025',text:'The most beautiful scent I have ever worn. Worth every penny.'}],
+};
+
+function genDemoOrds(){
+  const countries=['United States','United Kingdom','UAE','Pakistan','Canada','Germany','France','Italy','Japan','Australia'];
+  const names=['Sophie Laurent','James Wilson','Aisha Khan','Carlos Rivera','Elena Petrova','Omar Hassan','Yuki Tanaka','Amara Nwosu','Isabella Costa','Fatima Al-Rashid'];
+  const statuses=['Confirmed','Processing','Shipped','Delivered'];
+  const orders=[];const prods=DB.g('products')||SEED;
+  for(let i=0;i<45;i++){
+    const da=Math.floor(Math.random()*90),d=new Date();d.setDate(d.getDate()-da);
+    let sub=0;const items=[];
+    for(let j=0;j<Math.floor(Math.random()*3)+1;j++){const p=prods[Math.floor(Math.random()*prods.length)],qty=Math.floor(Math.random()*2)+1;items.push({id:p.id,qty,name:p.name,price:p.price,color:p.colors?.[0]||'',size:p.sizes?.[0]||''});sub+=p.price*qty;}
+    const nm=names[Math.floor(Math.random()*names.length)];
+    orders.push({id:'LVM-'+(1000+i),userId:'demo',customer:{name:nm,phone:'+1 555-0'+String(i).padStart(3,'0'),email:nm.toLowerCase().replace(' ','.')+'@demo.com',address:'123 Maison Blvd',city:'Demo City',postal:'00000',country:countries[Math.floor(Math.random()*countries.length)]},items,payment:Math.random()>0.45?'cod':'card',subtotal:sub,shipping:sub>300?0:20,tax:sub*0.08,total:sub+(sub>300?0:20)+sub*0.08,status:statuses[Math.floor(Math.random()*4)],date:d.toLocaleDateString('en-US',{month:'short',day:'numeric',year:'numeric'}),_ts:d.getTime()});
+  }
+  DB.s('orders',orders);toast('45 demo orders generated!');renderAdmin();
+}
+
+// ── INIT ──
+function init(){
+  user=DB.g('session');cart=DB.g('cart')||[];wishlist=DB.g('wishlist')||[];
+  if(!DB.g('products'))DB.s('products',SEED);
+  if(!DB.g('reviews'))DB.s('reviews',SEED_REVS);
+  if(!DB.g('orders'))genDemoOrds();
+  if(!DB.g('users'))DB.s('users',[]);
+  if(!DB.g('subscribers'))DB.s('subscribers',[]);
+  if(!DB.g('admin'))DB.s('admin',{email:'admin@lvmaison.com',password:btoa('admin2025')});
+
+  setTheme(DB.g('theme')||'light');
+  updateBadge();setupNav();startCountdown();
+  const hash=location.hash.slice(1);
+  go(hash&&document.getElementById('page-'+hash)?hash:'home',false);
+  setTimeout(()=>document.getElementById('loader').classList.add('gone'),2400);
+  updateAuthBtn();
+}
+
+// ── COUNTDOWN ──
+function startCountdown(){
+  const saved=DB.g('cd_end');
+  let end;
+  if(saved&&saved>Date.now()){end=saved;}
+  else{end=Date.now()+8*60*60*1000+33*60*1000+27*1000;DB.s('cd_end',end);}
+  function tick(){
+    const diff=end-Date.now();
+    if(diff<=0){document.getElementById('cdBar').style.display='none';return;}
+    const h=Math.floor(diff/3600000),m=Math.floor((diff%3600000)/60000),s=Math.floor((diff%60000)/1000);
+    const f=n=>String(n).padStart(2,'0');
+    document.getElementById('cd-h').textContent=f(h);
+    document.getElementById('cd-m').textContent=f(m);
+    document.getElementById('cd-s').textContent=f(s);
+  }
+  tick();setInterval(tick,1000);
+}
+
+// ── THEME ──
+function toggleTheme(){setTheme(document.documentElement.getAttribute('data-theme')==='light'?'dark':'light');}
+function setTheme(t){
+  document.documentElement.setAttribute('data-theme',t);DB.s('theme',t);
+  const tog=document.getElementById('themeTog'),kn=document.getElementById('togKnob');
+  if(tog)tog.classList.toggle('dark',t==='dark');
+  if(kn)kn.textContent=t==='dark'?'🌙':'☀️';
+  const ti=document.getElementById('themeInfo');if(ti)ti.textContent=t==='dark'?'Dark':'Light';
+  if(document.getElementById('page-admin').classList.contains('active'))setTimeout(()=>{drawRevChart('30');drawCatChart();},150);
+}
+
+// ── ROUTING ──
+function go(page,scroll=true){
+  document.querySelectorAll('.page').forEach(p=>p.classList.remove('active'));
+  const el=document.getElementById('page-'+page);if(!el)return;
+  el.classList.add('active');location.hash=page;
+  if(scroll)scrollTo({top:0,behavior:'smooth'});
+  const isAdm=page==='admin'||page==='admin-login';
+  document.getElementById('navbar').style.display=isAdm?'none':'';
+  document.getElementById('siteFooter').style.display=isAdm?'none':'';
+  document.querySelectorAll('.nav-links a').forEach(a=>a.classList.remove('active'));
+  const al=document.querySelector('[data-p="'+page+'"]');if(al)al.classList.add('active');
+  closeMenu();
+  switch(page){
+    case 'home':renderHome();break;
+    case 'products':renderProds();break;
+    case 'cart':renderCart();break;
+    case 'checkout':renderCheckout();break;
+    case 'admin':if(!checkAdm()){go('admin-login');return;}renderAdmin();break;
+    case 'admin-login':const ge=document.getElementById('gateErr');if(ge)ge.style.display='none';break;
+  }
+}
+
+// ── NAV ──
+function setupNav(){
+  window.addEventListener('scroll',()=>document.getElementById('navbar').classList.toggle('scrolled',scrollY>50));
+  document.getElementById('hamburger').addEventListener('click',()=>{
+    document.getElementById('navLinks').classList.toggle('open');
+    document.getElementById('hamburger').classList.toggle('open');
+    document.getElementById('mobOverlay').classList.toggle('show');
+  });
+}
+function closeMenu(){['navLinks','hamburger','mobOverlay'].forEach(id=>document.getElementById(id)?.classList.remove('open','show'));}
+function handleAuth(){user?toast('Signed in as '+user.email):go('login');}
+function updateAuthBtn(){const b=document.getElementById('authBtn');if(!b)return;b.textContent=user?user.first:'SIGN IN';b.onclick=handleAuth;}
+
+// ── SIZE CHART ──
+function openSizeChart(){document.getElementById('sizeModal').classList.add('open');}
+function closeSizeChart(){document.getElementById('sizeModal').classList.remove('open');}
+function showSCTab(tab,btn){
+  document.querySelectorAll('.sc-tab').forEach(t=>t.classList.remove('active'));
+  document.querySelectorAll('.sc-panel').forEach(p=>p.classList.remove('active'));
+  if(btn)btn.classList.add('active');
+  const p=document.getElementById('sc-'+tab);if(p)p.classList.add('active');
+}
+
+// ── HOME ──
+function renderHome(){
+  fillGrid('homeNewGrid',p=>p.tags?.includes('new'),4);
+  fillGrid('homeTrendGrid',p=>p.tags?.includes('trending'),4);
+  fillGrid('homeBestGrid',p=>p.tags?.includes('bestseller'),4);
+}
+function fillGrid(id,fn,lim){const el=document.getElementById(id);if(!el)return;el.innerHTML=(DB.g('products')||SEED).filter(fn).slice(0,lim).map(pcard).join('')||'<p style="color:var(--muted);grid-column:1/-1;text-align:center;padding:2rem">Check back soon!</p>';}
+function filterGo(cat){activecat=cat;go('products');}
+
+// ── PRODUCT CARD ──
+function pcard(p){
+  const inWL=wishlist.includes(p.id);
+  const bd=p.tags?.includes('new')?'<span class="badge b-new">NEW</span>':p.tags?.includes('sale')?'<span class="badge b-sale">SALE</span>':p.tags?.includes('trending')?'<span class="badge b-hot">HOT</span>':'';
+  const st='★'.repeat(Math.round(p.rating||4))+'☆'.repeat(5-Math.round(p.rating||4));
+  const cols=(p.colors||[]).slice(0,4).map(c=>`<div class="cdot" style="background:${CMAP[c]||'#888'}" title="${c}"></div>`).join('');
+  return`<div class="pc" onclick="openProd('${p.id}')">
+    <div class="pc-img">
+      <img src="${p.images?.[0]||''}" alt="${esc(p.name)}" loading="lazy">
+      <div class="pc-badges">${bd}</div>
+      <div class="pc-acts" onclick="event.stopPropagation()">
+        <button class="pa-btn" onclick="toggleWish('${p.id}')">${inWL?'♥':'♡'}</button>
+        <button class="pa-btn" onclick="quickAdd('${p.id}')">🛍</button>
+        <button class="pa-btn" onclick="openProd('${p.id}')">👁</button>
+      </div>
+      <div class="pc-colors">${cols}</div>
+    </div>
+    <div class="pc-body">
+      <div class="pc-cat">${catLabel(p.category)}</div>
+      <div class="pc-name">${esc(p.name)}</div>
+      <div class="pc-rating"><span class="stars">${st}</span><span class="rc">(${p.reviews||0})</span></div>
+      <div class="pc-foot">
+        <div class="pc-price">${p.origPrice?`<del>$${p.origPrice.toFixed(2)}</del> $${p.price.toFixed(2)}`:`$${p.price.toFixed(2)}`}</div>
+        <button class="pc-add" onclick="event.stopPropagation();quickAdd('${p.id}')">+</button>
+      </div>
+    </div>
+  </div>`;
+}
+
+// ── PRODUCTS PAGE ──
+function renderProds(){
+  let prods=DB.g('products')||SEED;
+  if(activecat!=='all')prods=prods.filter(p=>p.category===activecat);
+  const q=(document.getElementById('searchInp')?.value||'').toLowerCase();
+  if(q)prods=prods.filter(p=>p.name.toLowerCase().includes(q)||p.description.toLowerCase().includes(q)||p.category.toLowerCase().includes(q));
+  const price=parseInt(document.getElementById('priceSlider')?.value||2000);
+  prods=prods.filter(p=>p.price<=price);
+  const sort=document.getElementById('sortSel')?.value||'newest';
+  if(sort==='price-lo')prods.sort((a,b)=>a.price-b.price);
+  else if(sort==='price-hi')prods.sort((a,b)=>b.price-a.price);
+  else if(sort==='rating')prods.sort((a,b)=>(b.rating||0)-(a.rating||0));
+  else prods.reverse();
+  const cnt=document.getElementById('prodCount');if(cnt)cnt.textContent=prods.length+' PRODUCT'+(prods.length!==1?'S':'');
+  const grid=document.getElementById('prodsGrid');if(!grid)return;
+  grid.innerHTML=prods.length?prods.map(pcard).join(''):'<p style="color:var(--muted);text-align:center;padding:5rem;grid-column:1/-1;font-family:Rajdhani,sans-serif;letter-spacing:2px">NO PRODUCTS FOUND.</p>';
+}
+function setCat(cat,btn){activecat=cat;document.querySelectorAll('.fp').forEach(b=>b.classList.remove('active'));if(btn)btn.classList.add('active');renderProds();}
+
+// ── PRODUCT DETAIL ──
+function openProd(id){
+  const p=(DB.g('products')||SEED).find(x=>x.id===id);if(!p)return;
+  go('detail');
+  const revs=(DB.g('reviews')||{})[id]||[];
+  const avg=revs.length?(revs.reduce((s,r)=>s+r.rating,0)/revs.length).toFixed(1):(p.rating||4.5);
+  const st=n=>'★'.repeat(n)+'☆'.repeat(5-n);
+  const thumbsH=(p.images||[]).map((img,i)=>`<img class="thumb${i===0?' active':''}" src="${img}" onclick="swapImg('${id}',this,'${img}')">`).join('');
+  const vidH=p.video?`<div class="vid-box"><iframe src="${p.video}" allowfullscreen loading="lazy"></iframe></div>`:'';
+  const colsH=(p.colors||[]).map((c,i)=>`<div class="color-opt${i===0?' active':''}" style="background:${CMAP[c]||'#888'}" data-color="${c}" onclick="selCol(this,'${id}')" title="${c}"></div>`).join('');
+  const szH=(p.sizes||[]).map((s,i)=>`<button class="size-opt${i===0?' active':''}" data-size="${s}" onclick="selSz(this,'${id}')">${s}</button>`).join('');
+  const revH=revs.map(r=>`<div class="rev-card"><div class="rev-top"><div><div class="rev-user">${esc(r.user)}</div><div class="stars" style="color:var(--gold);font-size:.73rem">${st(r.rating)}</div></div><div class="rev-date">${r.date}</div></div><div class="rev-body">${esc(r.text)}</div></div>`).join('');
+  document.getElementById('detailWrap').innerHTML=`
+  <div class="detail-wrap">
+    <div class="breadcrumb"><a onclick="go('home')">HOME</a> / <a onclick="go('products')">SHOP</a> / <span>${esc(p.name).toUpperCase()}</span></div>
+    <div class="detail-grid">
+      <div class="gallery">
+        <img class="main-img" id="mImg_${id}" src="${p.images?.[0]||''}" alt="${esc(p.name)}">
+        <div class="thumbs">${thumbsH}</div>
+        ${vidH}
+      </div>
+      <div>
+        <div class="d-cat">${catLabel(p.category)}</div>
+        <h1 class="d-name">${esc(p.name)}</h1>
+        <div class="d-rating"><span class="stars" style="font-size:1rem;color:var(--gold)">${st(Math.round(parseFloat(avg)))}</span><span style="font-size:.82rem;color:var(--muted)">${avg} (${revs.length} reviews)</span></div>
+        <div class="d-price">${p.origPrice?`<del>$${p.origPrice.toFixed(2)}</del> `:''}$${p.price.toFixed(2)}</div>
+        <div class="d-stock ${p.stock>10?'ins':p.stock>0?'los':'outs'}">${p.stock>10?'✓ IN STOCK ('+p.stock+' available)':p.stock>0?'⚠ ONLY '+p.stock+' LEFT':'✗ OUT OF STOCK'}</div>
+        <div class="d-desc">${esc(p.description)}</div>
+        ${p.colors?.length?`<div class="var-sec"><span class="var-lbl">COLOR: <span id="colName_${id}" style="color:var(--gold)">${p.colors[0]}</span></span><div class="color-opts">${colsH}</div></div>`:''}
+        ${p.sizes?.length?`<div class="var-sec"><span class="var-lbl">SIZE: <span id="szName_${id}" style="color:var(--gold)">${p.sizes[0]}</span></span><div class="size-opts">${szH}</div><span class="size-guide-link" onclick="openSizeChart()">📏 Size Guide</span></div>`:''}
+        <div class="qty-row">
+          <span style="font-family:Rajdhani,sans-serif;font-size:.65rem;letter-spacing:2.5px;color:var(--muted);font-weight:700">QUANTITY</span>
+          <div class="qty-ctrl"><button class="qty-b" onclick="chQty('qty_${id}',-1)">−</button><input class="qty-v" id="qty_${id}" type="number" value="1" min="1" max="${p.stock}"><button class="qty-b" onclick="chQty('qty_${id}',1)">+</button></div>
+        </div>
+        <div class="d-acts">
+          <button class="btn-gold" onclick="addFromDet('${id}')">ADD TO CART</button>
+          <button class="btn-outline-gold" onclick="toggleWish('${id}')" id="wBtn_${id}">${wishlist.includes(id)?'♥ WISHLISTED':'♡ WISHLIST'}</button>
+        </div>
+        <div class="trust-row">
+          <div class="trust-item">🔒 SECURE</div>
+          <div class="trust-item">📦 FREE RETURNS</div>
+          <div class="trust-item">✦ AUTHENTIC</div>
+          <div class="trust-item">🌍 WORLDWIDE</div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="rev-sec">
+    <div class="rev-hdr"><h3>REVIEWS (${revs.length})</h3><button class="btn-outline-gold bsm" onclick="togRevForm('${id}')">WRITE REVIEW</button></div>
+    <div class="rev-form" id="revForm_${id}" style="display:none">
+      <h4>YOUR REVIEW</h4>
+      <div class="star-row" id="starRow_${id}">${[1,2,3,4,5].map(n=>`<span onclick="pickStar('${id}',${n})" class="lit">★</span>`).join('')}</div>
+      <div class="form-group"><label>Your Name</label><input type="text" id="rvName_${id}" placeholder="Jane Doe"></div>
+      <div class="form-group"><label>Review</label><textarea id="rvText_${id}" rows="3" placeholder="Share your experience…"></textarea></div>
+      <button class="btn-gold bsm" onclick="submitRev('${id}')">SUBMIT</button>
+    </div>
+    <div class="rev-grid">${revH||'<p style="color:var(--muted);grid-column:1/-1;font-family:Rajdhani,sans-serif;letter-spacing:1px">NO REVIEWS YET. BE THE FIRST!</p>'}</div>
+  </div>`;
+  updStars(id,5);
+}
+function swapImg(pid,el,src){document.getElementById('mImg_'+pid).src=src;document.querySelectorAll('.thumb').forEach(t=>t.classList.remove('active'));el.classList.add('active');}
+function chQty(id,d){const el=document.getElementById(id);if(el)el.value=Math.max(1,parseInt(el.value)+d);}
+function addFromDet(pid){addToCart(pid,parseInt(document.getElementById('qty_'+pid)?.value||1));}
+function selCol(el,pid){document.querySelectorAll('.color-opt').forEach(c=>c.classList.remove('active'));el.classList.add('active');const n=document.getElementById('colName_'+pid);if(n)n.textContent=el.dataset.color;}
+function selSz(el,pid){document.querySelectorAll('.size-opt').forEach(s=>s.classList.remove('active'));el.classList.add('active');const n=document.getElementById('szName_'+pid);if(n)n.textContent=el.dataset.size;}
+function togRevForm(pid){const f=document.getElementById('revForm_'+pid);if(f)f.style.display=f.style.display==='none'?'block':'none';}
+function pickStar(pid,n){starVal=n;updStars(pid,n);}
+function updStars(pid,n){const c=document.getElementById('starRow_'+pid);if(!c)return;c.querySelectorAll('span').forEach((s,i)=>{s.classList.toggle('lit',i<n);s.style.color=i<n?'var(--gold)':'var(--border)'});}
+function submitRev(pid){
+  const name=document.getElementById('rvName_'+pid)?.value.trim(),text=document.getElementById('rvText_'+pid)?.value.trim();
+  if(!name||!text){toast('Please fill in all fields');return;}
+  const all=DB.g('reviews')||{};
+  all[pid]=[{id:'rv'+Date.now(),user:name,rating:starVal,date:new Date().toLocaleDateString('en-US',{month:'short',day:'numeric',year:'numeric'}),text},...(all[pid]||[])];
+  DB.s('reviews',all);
+  const prods=DB.g('products')||[],p=prods.find(x=>x.id===pid);if(p){p.reviews=all[pid].length;DB.s('products',prods);}
+  toast('Review submitted! Thank you ★');togRevForm(pid);openProd(pid);
+}
+
+// ── CART ──
+function getProds(){return DB.g('products')||SEED;}
+function getProd(id){return getProds().find(p=>p.id===id);}
+function saveCart(){DB.s('cart',cart);updateBadge();}
+function updateBadge(){const b=document.getElementById('cartBadge');if(b)b.textContent=cart.reduce((s,i)=>s+i.qty,0);}
+function addToCart(pid,qty=1){const p=getProd(pid);if(!p)return;const ex=cart.find(i=>i.id===pid);if(ex)ex.qty=Math.min(ex.qty+qty,p.stock);else cart.push({id:pid,qty,color:p.colors?.[0]||'',size:p.sizes?.[0]||''});saveCart();toast(p.name+' added to cart 🛍');}
+function quickAdd(pid){addToCart(pid,1);}
+function removeItem(pid){cart=cart.filter(i=>i.id!==pid);saveCart();renderCart();}
+function updQty(pid,d){const item=cart.find(i=>i.id===pid);if(!item)return;const p=getProd(pid);item.qty=Math.min(Math.max(1,item.qty+d),p?.stock||99);saveCart();renderCart();}
+function renderCart(){
+  const el=document.getElementById('cartItems'),sr=document.getElementById('sumRows'),ct=document.getElementById('cartTotalEl');if(!el)return;
+  if(!cart.length){el.innerHTML=`<div class="empty-cart"><div class="ei">🛍</div><h3 style="font-family:'Bebas Neue',sans-serif;font-size:2.5rem;letter-spacing:3px;color:var(--text)">YOUR CART IS EMPTY</h3><p style="color:var(--muted);margin-bottom:1.5rem;font-family:Rajdhani,sans-serif;letter-spacing:1px">Discover our curated luxury edit</p><button class="btn-gold" onclick="go('products')">SHOP THE EDIT</button></div>`;return;}
+  let sub=0;
+  el.innerHTML=cart.map(item=>{const p=getProd(item.id);if(!p)return'';const lt=p.price*item.qty;sub+=lt;
+    return`<div class="cart-item"><img class="ci-img" src="${p.images?.[0]||''}" alt="${esc(p.name)}"><div><div class="ci-name">${esc(p.name)}</div><div class="ci-meta">${catLabel(p.category)}${item.color?' · '+item.color:''}${item.size?' · '+item.size:''}</div><div class="ci-price">$${p.price.toFixed(2)} each</div></div><div class="ci-right"><div class="ci-total">$${lt.toFixed(2)}</div><div class="qty-ctrl"><button class="qty-b" onclick="updQty('${p.id}',-1)">−</button><span style="padding:0 .75rem;font-size:.9rem;color:var(--text)">${item.qty}</span><button class="qty-b" onclick="updQty('${p.id}',1)">+</button></div><button class="ci-remove" onclick="removeItem('${p.id}')">REMOVE</button></div></div>`;}).join('');
+  const sh=sub>300?0:20,tax=sub*0.08,total=sub+sh+tax;
+  if(sr)sr.innerHTML=`<div class="sum-row"><span>Subtotal</span><span>$${sub.toFixed(2)}</span></div><div class="sum-row"><span>Shipping</span><span>${sh===0?'Complimentary':'$'+sh.toFixed(2)}</span></div><div class="sum-row"><span>Tax (8%)</span><span>$${tax.toFixed(2)}</span></div>`;
+  if(ct)ct.textContent='$'+total.toFixed(2);
+}
+function gotoCheckout(){if(!cart.length){toast('Your cart is empty');return;}if(!user){toast('Please sign in to checkout');go('login');return;}go('checkout');}
+function applyPromo(){const c=document.getElementById('promoCode')?.value.toUpperCase();c==='LVM20'?toast('20% applied! Code: LVM20'):toast('Invalid promo code');}
+function renderCheckout(){
+  const iEl=document.getElementById('coItems'),tEl=document.getElementById('coTotals');if(!iEl)return;
+  let sub=0;
+  iEl.innerHTML=cart.map(item=>{const p=getProd(item.id);if(!p)return'';const lt=p.price*item.qty;sub+=lt;return`<div class="co-item"><img src="${p.images?.[0]||''}" alt="${esc(p.name)}"><div class="co-item-info"><h5>${esc(p.name)}</h5><p>Qty: ${item.qty}${item.color?' · '+item.color:''}${item.size?' · '+item.size:''}</p></div><div class="co-item-price">$${lt.toFixed(2)}</div></div>`;}).join('');
+  const sh=sub>300?0:20,tax=sub*0.08,total=sub+sh+tax;
+  if(tEl)tEl.innerHTML=`<div class="co-row"><span>Subtotal</span><span>$${sub.toFixed(2)}</span></div><div class="co-row"><span>Shipping</span><span>${sh===0?'Complimentary':'$'+sh.toFixed(2)}</span></div><div class="co-row"><span>Tax</span><span>$${tax.toFixed(2)}</span></div><div class="co-row grand"><span>TOTAL</span><span>$${total.toFixed(2)}</span></div>`;
+  if(user){const ne=document.getElementById('coEmail'),nn=document.getElementById('coName');if(ne)ne.value=user.email||'';if(nn)nn.value=(user.first||'')+' '+(user.last||'');}
+  document.querySelectorAll('.pay-opt').forEach(l=>{l.addEventListener('click',()=>{document.querySelectorAll('.pay-opt').forEach(x=>x.classList.remove('sel'));l.classList.add('sel');});});
+}
+function placeOrder(){
+  const fields=['coName','coPhone','coEmail','coAddr','coCity','coPostal','coCountry'];
+  for(const f of fields){if(!document.getElementById(f)?.value.trim()){toast('Please fill in all required fields');return;}}
+  if(!cart.length){toast('Your cart is empty');return;}
+  const pay=document.querySelector('input[name="pay"]:checked')?.value||'cod';
+  let sub=0;cart.forEach(item=>{const p=getProd(item.id);if(p)sub+=p.price*item.qty;});
+  const now=new Date();
+  const order={id:'LVM-'+Date.now(),userId:user?.id||'guest',customer:{name:document.getElementById('coName').value,phone:document.getElementById('coPhone').value,email:document.getElementById('coEmail').value,address:document.getElementById('coAddr').value,city:document.getElementById('coCity').value,postal:document.getElementById('coPostal').value,country:document.getElementById('coCountry').value},items:cart.map(i=>({...i,name:getProd(i.id)?.name||'',price:getProd(i.id)?.price||0})),payment:pay,subtotal:sub,shipping:sub>300?0:20,tax:sub*0.08,total:sub+(sub>300?0:20)+sub*0.08,status:'Confirmed',date:now.toLocaleDateString('en-US',{month:'short',day:'numeric',year:'numeric'}),_ts:now.getTime()};
+  const ords=DB.g('orders')||[];ords.push(order);DB.s('orders',ords);
+  const prods=getProds();cart.forEach(item=>{const p=prods.find(x=>x.id===item.id);if(p)p.stock=Math.max(0,p.stock-item.qty);});DB.s('products',prods);
+  cart=[];saveCart();go('confirm');
+  const cb=document.getElementById('confirmBox');if(cb)cb.innerHTML=`<div class="cd-row"><span>Order ID</span><strong>${order.id}</strong></div><div class="cd-row"><span>Customer</span><strong>${esc(order.customer.name)}</strong></div><div class="cd-row"><span>Email</span><strong>${esc(order.customer.email)}</strong></div><div class="cd-row"><span>Delivery</span><strong>${esc(order.customer.city)}, ${esc(order.customer.country)}</strong></div><div class="cd-row"><span>Payment</span><strong>${pay==='cod'?'Cash on Delivery':'Card'}</strong></div><div class="cd-row"><span>Total</span><strong>$${order.total.toFixed(2)}</strong></div><div class="cd-row"><span>Status</span><strong style="color:#4a8c5c">✓ CONFIRMED</strong></div>`;
+}
+
+// ── AUTH ──
+function hp(pw){return btoa(pw+'_lvm_s4lt');}
+function signup(){
+  const first=document.getElementById('signFirst')?.value.trim(),last=document.getElementById('signLast')?.value.trim(),email=document.getElementById('signEmail')?.value.trim(),pass=document.getElementById('signPass')?.value,pass2=document.getElementById('signPass2')?.value,agree=document.getElementById('agreeBox')?.checked;
+  if(!first||!last||!email||!pass){toast('Please fill in all fields');return;}
+  if(pass.length<8){toast('Password must be 8+ characters');return;}
+  if(pass!==pass2){toast('Passwords do not match');return;}
+  if(!agree){toast('Please agree to the terms');return;}
+  const users=DB.g('users')||[];if(users.find(u=>u.email===email)){toast('Email already registered');return;}
+  const u={id:'u'+Date.now(),first,last,email,password:hp(pass),joined:new Date().toLocaleDateString()};
+  users.push(u);DB.s('users',users);user=u;DB.s('session',u);updateAuthBtn();toast('Welcome to LV Maison, '+first+'! ✦');go('home');
+}
+function login(){
+  const email=document.getElementById('loginEmail')?.value.trim(),pass=document.getElementById('loginPass')?.value;
+  if(!email||!pass){toast('Please enter credentials');return;}
+  const u=(DB.g('users')||[]).find(u=>u.email===email&&u.password===hp(pass));
+  if(!u){toast('Invalid email or password');return;}
+  user=u;DB.s('session',u);updateAuthBtn();toast('Welcome back, '+u.first+'!');go('home');
+}
+function loginAdmin(){
+  const email=document.getElementById('loginEmail')?.value.trim(),pass=document.getElementById('loginPass')?.value;
+  const a=DB.g('admin');if(email===a?.email&&btoa(pass)===a?.password){DB.s('adm_sess',{email,ts:Date.now()});go('admin');}else toast('Invalid admin credentials');
+}
+function logout(){user=null;DB.d('session');updateAuthBtn();toast('Signed out');go('home');}
+function togglePw(id,btn){const el=document.getElementById(id);if(!el)return;el.type=el.type==='password'?'text':'password';btn.textContent=el.type==='password'?'SHOW':'HIDE';}
+
+// ── ADMIN GATE ──
+function gateLogin(){
+  const email=document.getElementById('gEmail').value.trim(),pass=document.getElementById('gPass').value;
+  const errEl=document.getElementById('gateErr');
+  if(!email||!pass){showGE('Please enter your credentials.');return;}
+  const a=DB.g('admin');
+  if(email===a?.email&&btoa(pass)===a?.password){DB.s('adm_sess',{email,ts:Date.now()});errEl.style.display='none';go('admin');}
+  else{showGE('Invalid email or password. Please try again.');document.getElementById('gPass').value='';}
+}
+function showGE(m){const el=document.getElementById('gateErr');if(el){el.textContent='⚠ '+m;el.style.display='block';}}
+function checkAdm(){return!!DB.g('adm_sess');}
+function adminLogout(){DB.d('adm_sess');go('home');}
+
+// ── WISHLIST ──
+function toggleWish(id){wishlist.includes(id)?wishlist=wishlist.filter(x=>x!==id):wishlist.push(id);DB.s('wishlist',wishlist);toast(wishlist.includes(id)?'Added to wishlist ♥':'Removed from wishlist');const b=document.getElementById('wBtn_'+id);if(b)b.textContent=wishlist.includes(id)?'♥ WISHLISTED':'♡ WISHLIST';}
+function openWishlist(){document.getElementById('wishModal').classList.add('open');const el=document.getElementById('wishItems');if(!el)return;const prods=wishlist.map(id=>getProd(id)).filter(Boolean);el.innerHTML=prods.length?prods.map(p=>`<div class="cart-item" style="grid-template-columns:80px 1fr auto"><img class="ci-img" src="${p.images?.[0]||''}" style="width:80px;height:80px"><div><div class="ci-name">${esc(p.name)}</div><div class="ci-price" style="margin-top:.3rem;color:var(--gold)">$${p.price.toFixed(2)}</div></div><div style="display:flex;flex-direction:column;gap:.5rem"><button class="btn-gold bsm" onclick="quickAdd('${p.id}');closeWish()">ADD</button><button class="btn-outline-text bsm" onclick="toggleWish('${p.id}');openWishlist()">REMOVE</button></div></div>`).join(''):'<p style="text-align:center;color:var(--muted);padding:2rem;font-family:Rajdhani,sans-serif;letter-spacing:1px">YOUR WISHLIST IS EMPTY</p>';}
+function closeWish(){document.getElementById('wishModal').classList.remove('open');}
+
+// ══════════════════ ADMIN ══════════════════
+function renderAdmin(){
+  const ts=document.getElementById('admTime');if(ts)ts.textContent=new Date().toLocaleTimeString();
+  renderDash();renderAdmProds();renderAdmOrds();renderAdmCust();renderAdmSubs();renderAdmRevs();
+}
+function showSec(s,btn){
+  document.querySelectorAll('.adm-sec').forEach(x=>x.classList.remove('active'));
+  document.querySelectorAll('.adm-btn').forEach(b=>b.classList.remove('active'));
+  const el=document.getElementById('sec-'+s);if(el)el.classList.add('active');if(btn)btn.classList.add('active');
+  const titles={dashboard:'DASHBOARD',analytics:'ANALYTICS',products:'PRODUCTS',addprod:'ADD PRODUCT',orders:'ORDERS',customers:'CUSTOMERS',subscribers:'SUBSCRIBERS',reviews:'REVIEWS',settings:'SETTINGS'};
+  const tb=document.getElementById('admTitle');if(tb)tb.textContent=titles[s]||s.toUpperCase();
+  if(s==='analytics')renderAnalytics();
+  if(s==='dashboard')renderDash();
+  if(s==='products')renderAdmProds();
+  if(s==='orders')renderAdmOrds();
+}
+
+function renderDash(){
+  const prods=getProds(),ords=DB.g('orders')||[],users=DB.g('users')||[];
+  const rev=ords.reduce((s,o)=>s+o.total,0),avg=ords.length?rev/ords.length:0;
+  const today=new Date();today.setHours(0,0,0,0);const tOrd=ords.filter(o=>o._ts&&new Date(o._ts)>=today).length;
+  const kg=document.getElementById('kpiGrid');
+  if(kg)kg.innerHTML=[
+    {lbl:'TOTAL REVENUE',val:'$'+rev.toFixed(0),ch:'+14.2% this month',up:true,cls:'g',ico:'💰'},
+    {lbl:'TOTAL ORDERS',val:ords.length,ch:tOrd+' today',up:true,cls:'w',ico:'📦'},
+    {lbl:'CUSTOMERS',val:users.length,ch:'Registered',up:true,cls:'g',ico:'👤'},
+    {lbl:'AVG ORDER',val:'$'+avg.toFixed(0),ch:'Per transaction',up:true,cls:'w',ico:'📊'},
+  ].map(k=>`<div class="kpi"><div class="kpi-top"><div class="kpi-lbl">${k.lbl}</div><div class="kpi-ico">${k.ico}</div></div><div class="kpi-val ${k.cls}">${k.val}</div><div class="kpi-change ${k.up?'up':'dn'}">${k.up?'↑':'↓'} ${k.ch}</div></div>`).join('');
+  drawRevChart('30');drawCatChart();renderTopProds();
+  const ro=document.getElementById('recentOrds');
+  if(ro){const rc=ords.slice(-6).reverse();rc.length?ro.innerHTML=`<table><thead><tr><th>ORDER ID</th><th>CUSTOMER</th><th>TOTAL</th><th>STATUS</th><th>DATE</th></tr></thead><tbody>${rc.map(o=>`<tr><td style="color:var(--gold);font-weight:700;font-family:Rajdhani,sans-serif">${o.id}</td><td>${esc(o.customer?.name||'')}</td><td>$${o.total.toFixed(2)}</td><td><span class="sbadge s-${o.status}">${o.status}</span></td><td>${o.date}</td></tr>`).join('')}</tbody></table>`:ro.innerHTML='<p style="color:var(--muted);padding:1rem">No orders yet.</p>';}
+}
+
+function chartOpts(){const d=document.documentElement.getAttribute('data-theme')==='dark';return{g:d?'rgba(255,255,255,0.05)':'rgba(0,0,0,0.06)',t:d?'#7a6a50':'#8a7e74'};}
+function drawRevChart(days){
+  const ords=DB.g('orders')||[],n=parseInt(days),labels=[],data=[];
+  for(let i=n-1;i>=0;i--){const d=new Date();d.setDate(d.getDate()-i);const s=new Date(d);s.setHours(0,0,0,0);const e=new Date(d);e.setHours(23,59,59,999);labels.push(i%Math.ceil(n/8)===0?d.toLocaleDateString('en-US',{month:'short',day:'numeric'}):'');data.push(ords.filter(o=>o._ts&&new Date(o._ts)>=s&&new Date(o._ts)<=e).reduce((s,o)=>s+o.total,0));}
+  const ctx=document.getElementById('revChart')?.getContext('2d');if(!ctx)return;
+  if(chartInst.rev)chartInst.rev.destroy();
+  const{g,t}=chartOpts();
+  chartInst.rev=new Chart(ctx,{type:'line',data:{labels,datasets:[{data,borderColor:'#c9a84c',backgroundColor:'rgba(201,168,76,0.07)',borderWidth:2,pointRadius:2,tension:0.4,fill:true}]},options:{responsive:true,plugins:{legend:{display:false}},scales:{x:{ticks:{color:t,font:{size:9}},grid:{color:g}},y:{ticks:{color:t,font:{size:9},callback:v=>'$'+v},grid:{color:g}}}}});
+}
+function drawCatChart(){
+  const ords=DB.g('orders')||[];let cl=0,dc=0,je=0,ft=0,ac=0,be=0;
+  ords.forEach(o=>(o.items||[]).forEach(item=>{const p=getProd(item.id);if(!p)return;const v=item.price*(item.qty||1);if(p.category==='clothing')cl+=v;else if(p.category==='decor')dc+=v;else if(p.category==='jewellery')je+=v;else if(p.category==='footwear')ft+=v;else if(p.category==='beauty')be+=v;else ac+=v;}));
+  const ctx=document.getElementById('catChart')?.getContext('2d');if(!ctx)return;
+  if(chartInst.cat)chartInst.cat.destroy();
+  chartInst.cat=new Chart(ctx,{type:'doughnut',data:{labels:['Clothing','Décor','Jewellery','Footwear','Accessories','Beauty'],datasets:[{data:[cl,dc,je,ft,ac,be],backgroundColor:['#c9a84c','#3a4555','#8b1a1a','#0d1b3e','#6a8860','#c8607a'],borderColor:'transparent',borderWidth:2}]},options:{responsive:true,plugins:{legend:{labels:{color:chartOpts().t,font:{size:10}}}}}});
+}
+function renderTopProds(){
+  const ords=DB.g('orders')||[],map={};
+  ords.forEach(o=>(o.items||[]).forEach(item=>{map[item.id]=map[item.id]||{qty:0,rev:0};map[item.id].qty+=(item.qty||1);map[item.id].rev+=(item.price||0)*(item.qty||1);}));
+  const top=Object.entries(map).sort((a,b)=>b[1].rev-a[1].rev).slice(0,5);
+  const el=document.getElementById('topProds');if(!el)return;
+  el.innerHTML=top.length?top.map(([id,s],i)=>{const p=getProd(id);if(!p)return'';return`<div class="tp-item"><div class="tp-rank">${i+1}</div><img class="tp-img" src="${p.images?.[0]||''}" alt="${esc(p.name)}"><div style="flex:1"><div class="tp-name">${esc(p.name)}</div><div class="tp-sold">${s.qty} sold</div></div><div class="tp-rev">$${s.rev.toFixed(0)}</div></div>`;}).join(''):'<p style="color:var(--muted);font-size:.82rem;padding:1rem">No sales data yet.</p>';
+}
+
+// ── ANALYTICS ──
+function renderAnalytics(){
+  const range=document.getElementById('analRange')?.value||'all';
+  let ords=DB.g('orders')||[];
+  if(range!=='all'){const cut=new Date();cut.setDate(cut.getDate()-parseInt(range));ords=ords.filter(o=>o._ts&&new Date(o._ts)>=cut);}
+  const rev=ords.reduce((s,o)=>s+o.total,0),avg=ords.length?rev/ords.length:0,uniq=new Set(ords.map(o=>o.customer?.email)).size;
+  const items=ords.reduce((s,o)=>s+(o.items||[]).reduce((ss,i)=>ss+(i.qty||1),0),0);
+  const kEl=document.getElementById('analKpis');
+  if(kEl)kEl.innerHTML=[
+    {lbl:'REVENUE',val:'$'+rev.toFixed(2),sub:ords.length+' orders'},
+    {lbl:'AVG ORDER',val:'$'+avg.toFixed(2),sub:'Per transaction'},
+    {lbl:'ITEMS SOLD',val:items,sub:'Units total'},
+    {lbl:'CUSTOMERS',val:uniq,sub:'Unique buyers'},
+    {lbl:'COD / CARD',val:ords.filter(o=>o.payment==='cod').length+' / '+ords.filter(o=>o.payment==='card').length,sub:'Payment split'},
+  ].map(k=>`<div class="ak"><div class="lbl">${k.lbl}</div><div class="val">${k.val}</div><div class="sub">${k.sub}</div></div>`).join('');
+  drawAnalCharts(ords,range);renderCtries(ords);renderOrdLog(ords);
+}
+function getDayG(ords,range){
+  const days=range==='all'?90:parseInt(range),labels=[],groups=[];
+  for(let i=days-1;i>=0;i--){const d=new Date();d.setDate(d.getDate()-i);const s=new Date(d);s.setHours(0,0,0,0);const e=new Date(d);e.setHours(23,59,59,999);labels.push(d.toLocaleDateString('en-US',{month:'short',day:'numeric'}));groups.push(ords.filter(o=>o._ts&&new Date(o._ts)>=s&&new Date(o._ts)<=e));}
+  return{labels,groups};
+}
+function drawAnalCharts(ords,range){
+  const{labels,groups}=getDayG(ords,range);const sk=Math.ceil(labels.length/10);
+  const dL=labels.map((l,i)=>i%sk===0?l:'');const{g,t}=chartOpts();
+  const base={responsive:true,plugins:{legend:{display:false}},scales:{x:{ticks:{color:t,font:{size:9},maxRotation:0},grid:{color:g}},y:{ticks:{color:t,font:{size:9}},grid:{color:g}}}};
+
+  const rc=document.getElementById('aRevChart')?.getContext('2d');if(rc){if(chartInst.ar)chartInst.ar.destroy();chartInst.ar=new Chart(rc,{type:'line',data:{labels:dL,datasets:[{data:groups.map(g=>g.reduce((s,o)=>s+o.total,0)),borderColor:'#c9a84c',backgroundColor:'rgba(201,168,76,0.07)',borderWidth:2,pointRadius:1.5,tension:0.4,fill:true}]},options:{...base,scales:{...base.scales,y:{...base.scales.y,ticks:{...base.scales.y.ticks,callback:v=>'$'+v}}}}});}
+  const oc=document.getElementById('aOrdChart')?.getContext('2d');if(oc){if(chartInst.ao)chartInst.ao.destroy();chartInst.ao=new Chart(oc,{type:'bar',data:{labels:dL,datasets:[{data:groups.map(g=>g.length),backgroundColor:'rgba(201,168,76,0.5)',borderColor:'#c9a84c',borderWidth:1,borderRadius:2}]},options:base});}
+  let cl=0,dc=0,je=0,ft=0,ac=0,be=0;ords.forEach(o=>(o.items||[]).forEach(item=>{const p=getProd(item.id);if(!p)return;if(p.category==='clothing')cl+=(item.qty||1);else if(p.category==='decor')dc+=(item.qty||1);else if(p.category==='jewellery')je+=(item.qty||1);else if(p.category==='footwear')ft+=(item.qty||1);else if(p.category==='beauty')be+=(item.qty||1);else ac+=(item.qty||1);}));
+  const cc=document.getElementById('aCatChart')?.getContext('2d');if(cc){if(chartInst.ac)chartInst.ac.destroy();chartInst.ac=new Chart(cc,{type:'pie',data:{labels:['Clothing','Décor','Jewellery','Footwear','Accessories','Beauty'],datasets:[{data:[cl,dc,je,ft,ac,be],backgroundColor:['#c9a84c','#3a4555','#8b1a1a','#0d1b3e','#6a8860','#c8607a'],borderWidth:0}]},options:{responsive:true,plugins:{legend:{labels:{color:t,font:{size:10}}}}}});}
+  const cod=ords.filter(o=>o.payment==='cod').length,card=ords.filter(o=>o.payment==='card').length;
+  const pc=document.getElementById('aPayChart')?.getContext('2d');if(pc){if(chartInst.ap)chartInst.ap.destroy();chartInst.ap=new Chart(pc,{type:'doughnut',data:{labels:['Cash on Delivery','Card'],datasets:[{data:[cod,card],backgroundColor:['#c9a84c','#3a4555'],borderWidth:0}]},options:{responsive:true,plugins:{legend:{labels:{color:t,font:{size:10}}}}}});}
+  const sts=['Confirmed','Processing','Shipped','Delivered'],stC=sts.map(s=>ords.filter(o=>o.status===s).length);
+  const sc=document.getElementById('aStatChart')?.getContext('2d');if(sc){if(chartInst.as)chartInst.as.destroy();chartInst.as=new Chart(sc,{type:'bar',data:{labels:sts,datasets:[{data:stC,backgroundColor:['rgba(74,140,92,.7)','rgba(201,136,42,.7)','rgba(74,120,180,.7)','rgba(155,100,40,.7)'],borderWidth:0,borderRadius:3}]},options:{...base,indexAxis:'y',plugins:{legend:{display:false}}}});}
+}
+function renderCtries(ords){
+  const map={};ords.forEach(o=>{if(o.customer?.country)map[o.customer.country]=(map[o.customer.country]||0)+1;});
+  const sorted=Object.entries(map).sort((a,b)=>b[1]-a[1]).slice(0,7);const max=sorted[0]?.[1]||1;
+  const el=document.getElementById('ctryList');if(!el)return;
+  el.innerHTML=sorted.map(([c,n])=>`<div class="ctry-row"><div class="ctry-name">${c}</div><div class="ctry-bar"><div class="ctry-fill" style="width:${Math.round(n/max*100)}%"></div></div><div class="ctry-val">${n}</div></div>`).join('')||'<p style="color:var(--muted);font-size:.82rem">No data yet.</p>';
+}
+let logCache=[];
+function renderOrdLog(ords){logCache=ords.slice().sort((a,b)=>(b._ts||0)-(a._ts||0));dispLog(logCache);}
+function filterLog(q){if(!q){dispLog(logCache);return;}const lq=q.toLowerCase();dispLog(logCache.filter(o=>o.id.toLowerCase().includes(lq)||o.customer?.name?.toLowerCase().includes(lq)||o.status?.toLowerCase().includes(lq)));}
+function dispLog(ords){
+  const el=document.getElementById('orderLogTbl');if(!el)return;
+  el.innerHTML=ords.length?`<table><thead><tr><th>ORDER ID</th><th>CUSTOMER</th><th>EMAIL</th><th>COUNTRY</th><th>ITEMS</th><th>TOTAL</th><th>PAYMENT</th><th>STATUS</th><th>DATE</th><th>UPDATE</th></tr></thead><tbody>${ords.map(o=>`<tr><td style="color:var(--gold);font-weight:700;font-size:.75rem;font-family:Rajdhani">${o.id}</td><td>${esc(o.customer?.name||'')}</td><td style="font-size:.75rem">${esc(o.customer?.email||'')}</td><td>${esc(o.customer?.country||'')}</td><td>${(o.items||[]).reduce((s,i)=>s+(i.qty||1),0)}</td><td style="color:var(--gold);font-weight:700">$${o.total.toFixed(2)}</td><td>${o.payment==='cod'?'COD':'Card'}</td><td><span class="sbadge s-${o.status}">${o.status}</span></td><td style="font-size:.75rem">${o.date}</td><td><select class="stat-sel" onchange="updOS('${o.id}',this.value)">${['Confirmed','Processing','Shipped','Delivered'].map(s=>`<option ${s===o.status?'selected':''}>${s}</option>`).join('')}</select></td></tr>`).join('')}</tbody></table>`:'<p style="color:var(--muted);padding:1rem">No orders found.</p>';
+}
+function updOS(id,status){const ords=DB.g('orders')||[],o=ords.find(x=>x.id===id);if(o){o.status=status;DB.s('orders',ords);toast('Order '+id+' → '+status);}}
+
+// ── ADMIN PRODUCTS ──
+function renderAdmProds(){
+  const el=document.getElementById('admProdsTbl'),ce=document.getElementById('admProdCnt');if(!el)return;
+  let prods=getProds();const q=document.getElementById('admProdSearch')?.value?.toLowerCase()||'';
+  if(q)prods=prods.filter(p=>p.name.toLowerCase().includes(q)||p.category.includes(q));
+  if(ce)ce.textContent='('+prods.length+')';
+  el.innerHTML=prods.length?`<table><thead><tr><th>IMG</th><th>NAME</th><th>CATEGORY</th><th>PRICE</th><th>COLORS</th><th>SIZES</th><th>STOCK</th><th>TAGS</th><th>ACTIONS</th></tr></thead><tbody>${prods.map(p=>`<tr><td><img class="tbl-img" src="${p.images?.[0]||''}" alt="${esc(p.name)}"></td><td style="color:var(--text);font-weight:600">${esc(p.name)}</td><td>${catLabel(p.category)}</td><td style="color:var(--gold);font-weight:700">$${p.price.toFixed(2)}</td><td style="font-size:.72rem">${(p.colors||[]).slice(0,3).join(', ')}${(p.colors?.length||0)>3?'…':''}</td><td style="font-size:.72rem">${(p.sizes||[]).slice(0,3).join(', ')}${(p.sizes?.length||0)>3?'…':''}</td><td style="color:${(p.stock||0)<=5?'#c9882a':''};font-weight:${(p.stock||0)<=5?700:400}">${p.stock||0}</td><td style="font-size:.7rem;color:var(--muted)">${(p.tags||[]).join(', ')}</td><td style="white-space:nowrap"><button class="tb-btn tb-edit" onclick="editProd('${p.id}')">EDIT</button> <button class="tb-btn tb-del" onclick="delProd('${p.id}')">DEL</button></td></tr>`).join('')}</tbody></table>`:'<p style="color:var(--muted);padding:1rem">No products yet.</p>';
+}
+function renderAdmOrds(){
+  const el=document.getElementById('admOrdsTbl');if(!el)return;
+  const filt=document.getElementById('ordFilt')?.value||'all';
+  let ords=(DB.g('orders')||[]).slice().reverse();if(filt!=='all')ords=ords.filter(o=>o.status===filt);
+  el.innerHTML=ords.length?`<table><thead><tr><th>ID</th><th>CUSTOMER</th><th>EMAIL</th><th>TOTAL</th><th>PAYMENT</th><th>DATE</th><th>STATUS</th></tr></thead><tbody>${ords.map(o=>`<tr><td style="color:var(--gold);font-weight:700;font-family:Rajdhani">${o.id}</td><td>${esc(o.customer?.name||'')}</td><td style="font-size:.77rem">${esc(o.customer?.email||'')}</td><td>$${o.total.toFixed(2)}</td><td>${o.payment==='cod'?'COD':'Card'}</td><td>${o.date}</td><td><select class="stat-sel" onchange="updOS('${o.id}',this.value)">${['Confirmed','Processing','Shipped','Delivered'].map(s=>`<option ${s===o.status?'selected':''}>${s}</option>`).join('')}</select></td></tr>`).join('')}</tbody></table>`:'<p style="color:var(--muted);padding:1rem">No orders.</p>';
+}
+function renderAdmCust(){const el=document.getElementById('admCustTbl');if(!el)return;const u=DB.g('users')||[];el.innerHTML=u.length?`<table><thead><tr><th>NAME</th><th>EMAIL</th><th>JOINED</th></tr></thead><tbody>${u.map(x=>`<tr><td style="color:var(--text);font-weight:600">${esc(x.first)} ${esc(x.last)}</td><td>${esc(x.email)}</td><td>${x.joined||'—'}</td></tr>`).join('')}</tbody></table>`:'<p style="color:var(--muted);padding:1rem">No customers yet.</p>';}
+function renderAdmSubs(){const el=document.getElementById('admSubsTbl');if(!el)return;const s=DB.g('subscribers')||[];el.innerHTML=s.length?`<table><thead><tr><th>#</th><th>EMAIL</th><th>DATE</th></tr></thead><tbody>${s.map((x,i)=>`<tr><td>${i+1}</td><td>${esc(x.email)}</td><td>${x.date}</td></tr>`).join('')}</tbody></table>`:'<p style="color:var(--muted);padding:1rem">No subscribers yet.</p>';}
+function renderAdmRevs(){
+  const el=document.getElementById('admRevsTbl');if(!el)return;
+  const all=DB.g('reviews')||{},rows=[];
+  Object.entries(all).forEach(([pid,revs])=>{const p=getProd(pid);revs.forEach(r=>rows.push({...r,pname:p?.name||pid}));});
+  el.innerHTML=rows.length?`<table><thead><tr><th>PRODUCT</th><th>USER</th><th>RATING</th><th>REVIEW</th><th>DATE</th><th>ACTION</th></tr></thead><tbody>${rows.map(r=>`<tr><td style="color:var(--gold);font-weight:600">${esc(r.pname)}</td><td>${esc(r.user)}</td><td style="color:var(--gold)">${'★'.repeat(r.rating)}</td><td style="max-width:240px;font-size:.78rem">${esc(r.text)}</td><td>${r.date}</td><td><button class="tb-btn tb-del" onclick="delRev('${r.id}')">DEL</button></td></tr>`).join('')}</tbody></table>`:'<p style="color:var(--muted);padding:1rem">No reviews yet.</p>';
+}
+function delRev(id){const all=DB.g('reviews')||{};Object.keys(all).forEach(pid=>{all[pid]=all[pid].filter(r=>r.id!==id);});DB.s('reviews',all);toast('Review deleted');renderAdmRevs();}
+
+// ── SAVE PRODUCT ──
+function updPrev(){const el=document.getElementById('imgPrevRow');if(!el)return;const urls=['pImg1','pImg2','pImg3'].map(id=>document.getElementById(id)?.value).filter(Boolean);el.innerHTML=urls.map(u=>`<img src="${u}" onerror="this.style.display='none'" alt="preview">`).join('');}
+function editProd(id){
+  const p=getProd(id);if(!p)return;
+  document.getElementById('editId').value=id;
+  document.getElementById('addProdTitle').textContent='EDIT PRODUCT';
+  document.getElementById('pName').value=p.name||'';
+  document.getElementById('pCat').value=p.category||'';
+  document.getElementById('pPrice').value=p.price||'';
+  document.getElementById('pOrigPrice').value=p.origPrice||'';
+  document.getElementById('pStock').value=p.stock||'';
+  document.getElementById('pDesc').value=p.description||'';
+  document.getElementById('pColors').value=(p.colors||[]).join(', ');
+  document.getElementById('pSizes').value=(p.sizes||[]).join(', ');
+  document.getElementById('pTags').value=(p.tags||[]).join(', ');
+  document.getElementById('pImg1').value=p.images?.[0]||'';
+  document.getElementById('pImg2').value=p.images?.[1]||'';
+  document.getElementById('pImg3').value=p.images?.[2]||'';
+  document.getElementById('pVideo').value=p.video||'';
+  updPrev();showSec('addprod',document.querySelector('[data-s="addprod"]'));
+}
+function cancelEdit(){
+  document.getElementById('editId').value='';
+  document.getElementById('addProdTitle').textContent='ADD NEW PRODUCT';
+  document.getElementById('sec-addprod').querySelector('.adm-form').querySelectorAll('input,select,textarea').forEach(el=>el.value='');
+  document.getElementById('imgPrevRow').innerHTML='';
+  showSec('products',document.querySelector('[data-s="products"]'));
+}
+function saveProd(){
+  const name=document.getElementById('pName').value.trim(),cat=document.getElementById('pCat').value,price=parseFloat(document.getElementById('pPrice').value),img1=document.getElementById('pImg1').value.trim();
+  if(!name||!cat||!price||!img1){toast('Required: Name, Category, Price, and Image URL 1');return;}
+  const editId=document.getElementById('editId').value;
+  const prods=getProds();
+  const prod={
+    id:editId||'p'+Date.now(),name,category:cat,
+    price,origPrice:parseFloat(document.getElementById('pOrigPrice').value)||null,
+    stock:parseInt(document.getElementById('pStock').value)||0,
+    description:document.getElementById('pDesc').value.trim(),
+    colors:document.getElementById('pColors').value.split(',').map(s=>s.trim()).filter(Boolean),
+    sizes:document.getElementById('pSizes').value.split(',').map(s=>s.trim()).filter(Boolean),
+    images:['pImg1','pImg2','pImg3'].map(id=>document.getElementById(id).value.trim()).filter(Boolean),
+    video:document.getElementById('pVideo').value.trim(),
+    tags:document.getElementById('pTags').value.split(',').map(s=>s.trim()).filter(Boolean),
+    rating:4.5,reviews:0,
+  };
+  if(editId){const idx=prods.findIndex(p=>p.id===editId);if(idx>-1){prod.rating=prods[idx].rating;prod.reviews=prods[idx].reviews;prods[idx]=prod;}}else prods.push(prod);
+  DB.s('products',prods);toast(editId?'Product updated ✓':'Product added ✓');cancelEdit();renderAdmProds();renderDash();
+}
+function delProd(id){if(!confirm('Delete this product?'))return;DB.s('products',getProds().filter(p=>p.id!==id));toast('Product deleted');renderAdmProds();renderDash();}
+
+// ── SETTINGS ──
+function changePass(){
+  const old=document.getElementById('sOld')?.value,nw=document.getElementById('sNew')?.value,cf=document.getElementById('sConf')?.value;
+  const a=DB.g('admin');if(btoa(old)!==a?.password){toast('Current password incorrect');return;}
+  if(nw.length<8){toast('New password must be 8+ chars');return;}
+  if(nw!==cf){toast('Passwords do not match');return;}
+  a.password=btoa(nw);DB.s('admin',a);toast('Password updated ✓');['sOld','sNew','sConf'].forEach(id=>{const el=document.getElementById(id);if(el)el.value='';});
+}
+function clearOrds(){if(!confirm('Clear all orders?'))return;DB.s('orders',[]);toast('All orders cleared');renderAdmin();}
+function exportDB(){const data={products:getProds(),orders:DB.g('orders'),users:DB.g('users'),subscribers:DB.g('subscribers'),reviews:DB.g('reviews')};const blob=new Blob([JSON.stringify(data,null,2)],{type:'application/json'});const a=document.createElement('a');a.href=URL.createObjectURL(blob);a.download='lvmaison_db.json';a.click();}
+function exportCSV(){const ords=DB.g('orders')||[];const rows=[['ID','Customer','Email','Country','Total','Payment','Status','Date'],...ords.map(o=>[o.id,o.customer?.name||'',o.customer?.email||'',o.customer?.country||'',o.total.toFixed(2),o.payment,o.status,o.date])];const csv=rows.map(r=>r.map(c=>'"'+(c||'').toString().replace(/"/g,'""')+'"').join(',')).join('\n');const blob=new Blob([csv],{type:'text/csv'});const a=document.createElement('a');a.href=URL.createObjectURL(blob);a.download='lvmaison_orders.csv';a.click();toast('Orders exported!');}
+function exportSubs(){const s=DB.g('subscribers')||[];const csv=['Email,Date',...s.map(x=>`"${x.email}","${x.date}"`)].join('\n');const blob=new Blob([csv],{type:'text/csv'});const a=document.createElement('a');a.href=URL.createObjectURL(blob);a.download='lvmaison_subscribers.csv';a.click();toast('Subscribers exported!');}
+
+// ── NEWSLETTER ──
+function subscribe(){const e=document.getElementById('nlEmail')?.value.trim();if(!e||!e.includes('@')){toast('Please enter a valid email');return;}addSub(e);document.getElementById('nlEmail').value='';toast('Welcome to the LV Circle ✦');}
+function subscribePromo(){const e=document.getElementById('promoEmail')?.value.trim();if(!e||!e.includes('@')){toast('Please enter a valid email');return;}addSub(e);document.getElementById('promoEmail').value='';toast('Your code: LVM20 — valid 7 days 🎁');}
+function addSub(email){const s=DB.g('subscribers')||[];if(!s.find(x=>x.email===email)){s.push({email,date:new Date().toLocaleDateString()});DB.s('subscribers',s);}}
+function sendContact(e){e.preventDefault();toast('Message sent! We\'ll reply within 24 hours ✉');e.target.reset();}
+
+// ── UTILS ──
+function toast(msg){const t=document.getElementById('toast');if(!t)return;t.textContent=msg;t.classList.add('show');setTimeout(()=>t.classList.remove('show'),3500);}
+function catLabel(c){return{clothing:'Clothing',decor:'Home Décor',jewellery:'Jewellery',footwear:'Footwear',accessories:'Accessories',beauty:'Beauty'}[c]||c||'';}
+function esc(s){if(!s)return'';return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');}
+
+window.addEventListener('hashchange',()=>{const h=location.hash.slice(1);if(h&&document.getElementById('page-'+h))go(h,false);});
+document.addEventListener('DOMContentLoaded',init);
+</script>
+</body>
+</html>
